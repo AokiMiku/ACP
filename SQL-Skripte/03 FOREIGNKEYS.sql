@@ -1,0 +1,9 @@
+ALTER TABLE Cosplans
+ADD FOREIGN KEY (Franchise_Nr)
+REFERENCES Franchises (Nummer)
+ON DELETE CASCADE;
+
+ALTER TABLE Bilder
+ADD FOREIGN KEY (Cosplan_Nr)
+REFERENCES Cosplans (Nummer)
+ON DELETE CASCADE;

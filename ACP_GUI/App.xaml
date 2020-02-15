@@ -1,8 +1,8 @@
-﻿<Application x:Class="ACP.App"
+﻿<Application x:Class="ACP_GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ACP"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:ACP_GUI"
+             StartupUri="ApSCosplayplanner.xaml">
     <Application.Resources>
          
     </Application.Resources>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACP.Properties
+namespace ACP_GUI.Properties
 {
 
 

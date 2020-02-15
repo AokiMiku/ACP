@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ACP
+namespace ACP_GUI
 {
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"
