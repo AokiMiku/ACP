@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACP.DbObjects
+namespace ACP
 {
 	using ApS.Databases;
 
-	public class Einstellungen : ACP.Business
+	public class Einstellungen : Business
 	{
 		public Einstellungen() : base("Einstellungen", "", "", "", false, SqlAction.Null)
 		{
@@ -55,6 +55,21 @@ namespace ACP.DbObjects
 			{
 				return fbex.Message;
 			}
+		}
+
+		public void SetSetting(string key, bool value)
+		{
+			this.SetSetting(key, value.ToString());
+		}
+
+		public void SetSetting(string key, DateTime value)
+		{
+			this.SetSetting(key, value.ToString());
+		}
+
+		public void SetSetting(string key, int value)
+		{
+			this.SetSetting(key, value.ToString());
 		}
 
 		public string DbSettingKey

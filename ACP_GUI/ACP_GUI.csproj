@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icons\ACP.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirebirdSql.Data.FirebirdClient">
       <HintPath>..\..\ApS\ApS.Databases\ApS.Databases.Firebird\firebird\FirebirdSql.Data.FirebirdClient.dll</HintPath>
@@ -59,20 +62,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Einstellungen.xaml.cs">
+      <DependentUpon>Einstellungen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SaveCancel.xaml.cs">
       <DependentUpon>SaveCancel.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddFranchise.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ApSCosplayplanner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddFranchise.xaml.cs">
-      <DependentUpon>AddFranchise.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -81,6 +80,10 @@
       <DependentUpon>ApSCosplayplanner.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Einstellungen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SaveCancel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\picture.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\ACP.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

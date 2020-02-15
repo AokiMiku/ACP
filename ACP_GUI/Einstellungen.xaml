@@ -1,0 +1,48 @@
+﻿<Window x:Class="ACP_GUI.Einstellungen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ACP_GUI"
+        mc:Ignorable="d"
+        Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="5" />
+			<ColumnDefinition />
+			<ColumnDefinition Width="5" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="5" />
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="5" />
+		</Grid.RowDefinitions>
+		
+		<TabControl Grid.Row="1" Grid.Column="1">
+			<TabItem >
+				<TabItem.Header>
+					<DockPanel>
+						<Image Source="Resources/Icons/wheel.ico" Height="20" />
+						<Label Width="3" />
+						<TextBlock Text="Allgemeines" />
+					</DockPanel>
+				</TabItem.Header>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<DockPanel>
+						<!--<Image Source="Resources/Icons/wheel.ico" Height="20" />-->
+						<Label Width="3" />
+						<TextBlock Text="Farben" />
+					</DockPanel>
+				</TabItem.Header>
+			</TabItem>
+		</TabControl>
+
+		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">
+			<Label Height="10" />
+			<local:SaveCancel Speichern="SaveCancel_Speichern" Abbrechen="SaveCancel_Abbrechen" ></local:SaveCancel>
+		</StackPanel>
+	</Grid>
+</Window>

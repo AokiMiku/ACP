@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
-        Title="ApS Cosplayplanner" MinHeight="400" MinWidth="550" Loaded="Window_Loaded" Height="0" Width="0"
+        Title="ApS Cosplayplanner" MinHeight="400" MinWidth="700" Loaded="Window_Loaded" Height="0" Width="0"
 		>
-    <Grid>
+	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="5" />
 			<ColumnDefinition />
@@ -26,11 +26,15 @@
 				<ColumnDefinition />
 				<ColumnDefinition />
 				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
+				<RowDefinition Height="35" />
+				<RowDefinition Height="35" />
+				<RowDefinition Height="50" />
 				<RowDefinition />
 				<RowDefinition />
 				<RowDefinition />
@@ -40,21 +44,22 @@
 			</Grid.RowDefinitions>
 
 			<Label Content="Franchise: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
-			<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" >
+			<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" >
 				<ComboBox Name="franchises" Width="150" SelectionChanged="Franchises_SelectionChanged" />
+				<TextBox Name="newFranchise" Width="150" Visibility="Collapsed" KeyDown="NewFranchise_KeyDown" />
 				<DockPanel >
 					<Label Width="3"/>
-					<Button Name="addFranchise" Width="20" Click="AddFranchise_Click">
+					<Button Name="addFranchise" Width="20" Click="AddFranchise_Click" Background="Transparent" BorderThickness="0" >
 						<Image Source="Resources/Icons/add.ico" />
 					</Button>
 					<Label Width="3"/>
-					<Button Name="delFranchise" Width="20" Click="DelFranchise_Click">
+					<Button Name="delFranchise" Width="20" Click="DelFranchise_Click" Background="Transparent" BorderThickness="0" >
 						<Image Source="Resources/Icons/del.ico" />
 					</Button>
 				</DockPanel>
 			</DockPanel>
 
-			<Button Name="Einstellungen" Click="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" >
+			<Button Name="Einstellungen" Click="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Background="Transparent" >
 				<DockPanel>
 					<Image Source="Resources/Icons/wheel.ico" Width="20"/>
 					<Label Width="3"/>
@@ -64,47 +69,46 @@
 
 			<Label Content="Cosplans: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" />
 			<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
-				<Button Name="addCosplan" Click="AddCosplan_Click">
+				<Button Name="addCosplan" Click="AddCosplan_Click" Background="Transparent" BorderThickness="0" >
 					<Image Source="Resources/Icons/add.ico" Width="20" />
 				</Button>
 				<Label Width="3" />
-				<Button Name="deleteCosplan" Click="DeleteCosplan_Click">
+				<Button Name="delCosplan" Click="DelCosplan_Click" Background="Transparent" BorderThickness="0" >
 					<Image Source="Resources/Icons/del.ico" Width="20" />
 				</Button>
 			</DockPanel>
-			
-			
+
 			<Button Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColNummer_Click">
 				<DockPanel>
 					<TextBlock Text="Nummer" />
 					<Label Width="3" />
-					<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" />
+					<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Visible" />
 				</DockPanel>
 			</Button>
 
-			<Button Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColName_Click">
+			<Button Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColName_Click">
 				<DockPanel>
 					<TextBlock Text="Bezeichnung" />
 					<Label Width="3" />
-					<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" />
+					<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
 				</DockPanel>
 			</Button>
 
-			<Button Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColErledigt_Click">
+			<Button Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColErledigt_Click">
 				<DockPanel>
 					<TextBlock Text="Erledigt" />
 					<Label Width="3" />
-					<Image Name="colErledigtIcon" Source="Resources/Icons/arrow_down.ico" Width="20" />
+					<Image Name="colErledigtIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
 				</DockPanel>
 			</Button>
 
-			<Button Name="colBilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2">
+			<Button Name="colBilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2">
 				<DockPanel>
 					<TextBlock Text="Bilder" />
 				</DockPanel>
 			</Button>
 
-			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="6">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="6">
 				<StackPanel Name="data" >
 					<!--<Grid Height="30">
 						<Grid.ColumnDefinitions>
@@ -118,5 +122,5 @@
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>
-    </Grid>
+	</Grid>
 </Window>

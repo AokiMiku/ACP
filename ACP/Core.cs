@@ -13,6 +13,8 @@ namespace ACP
 	{
 		#region Felder
 		public Franchises Franchises { get; set; }
+		public OrderBy CosplansOrderBy { get; set; }
+		public static Einstellungen UserSettings { get; set; }
 		#endregion
 
 		public Core()
@@ -41,8 +43,10 @@ namespace ACP
 
 		public Franchises GetFranchises()
 		{
-			this.Franchises = new Franchises();
-			this.Franchises.Where = "Nummer is not null";
+			this.Franchises = new Franchises
+			{
+				Where = "Nummer is not null"
+			};
 			this.Franchises.Read();
 			return this.Franchises;
 		}
@@ -102,8 +106,8 @@ namespace ACP
 			{
 				cosplans.Where = "Franchise_Nr = " + franchise_nr;
 			}
+			cosplans.OrderBy = this.CosplansOrderBy.ToString().Replace("_", " ");
 			cosplans.Read();
-			cosplans.GoTop();
 
 			return cosplans;
 		}
@@ -160,5 +164,36 @@ namespace ACP
 			}
 		}
 		#endregion
+
+		public void ResetCosplanNummern()
+		{
+			using (Cosplans cosplans = new Cosplans())
+			{
+				cosplans.Where = "Nummer is not null";
+				cosplans.Read();
+
+				int newNummer = 1;
+
+				while (!cosplans.EoF)
+				{
+					cosplans.Nummer = newNummer;
+
+					cosplans.Save(ApS.Databases.SqlAction.Update);
+
+					newNummer++;
+					cosplans.Skip();
+				}
+			}
+		}
+
+		public enum OrderBy
+		{
+			Nummer_asc,
+			Nummer_desc,
+			Name_asc,
+			Name_desc,
+			Erledigt_asc,
+			Erledigt_desc
+		}
 	}
 }
