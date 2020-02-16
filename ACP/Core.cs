@@ -14,20 +14,11 @@ namespace ACP
 		#region Felder
 		public Franchises Franchises { get; set; }
 		public OrderBy CosplansOrderBy { get; set; }
-		public static Einstellungen UserSettings { get; set; }
 		#endregion
 
 		public Core()
 		{
-			FbConnectionStringBuilder fbConnString = new FbConnectionStringBuilder
-			{
-				ServerType = FbServerType.Embedded,
-				UserID = "sysdba",
-				Password = " ",
-
-				Database = Services.GetAppDir() + @"\Datenbank\ACP.fdb"
-			};
-			ApS.Databases.Settings.ConnectionString = fbConnString.ToString();
+			
 		}
 
 		#region Franchises
@@ -165,17 +156,19 @@ namespace ACP
 		}
 		#endregion
 
-		public void ResetCosplanNummern()
+		public static void ResetCosplanNummern()
 		{
 			using (Cosplans cosplans = new Cosplans())
 			{
 				cosplans.Where = "Nummer is not null";
+				cosplans.OrderBy = "Nummer asc";
 				cosplans.Read();
 
 				int newNummer = 1;
 
 				while (!cosplans.EoF)
 				{
+					cosplans.Where = "Nummer = " + cosplans.Nummer;
 					cosplans.Nummer = newNummer;
 
 					cosplans.Save(ApS.Databases.SqlAction.Update);
@@ -183,6 +176,8 @@ namespace ACP
 					newNummer++;
 					cosplans.Skip();
 				}
+				string stmt = "ALTER SEQUENCE GEN_COSPLANS_ID RESTART WITH " + --newNummer + ";";
+				cosplans.FbSave.Execute(stmt);
 			}
 		}
 

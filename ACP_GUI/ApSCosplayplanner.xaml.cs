@@ -61,6 +61,12 @@ namespace ACP_GUI
 				this.newFranchise.Visibility = Visibility.Collapsed;
 
 				this.ActualizeFanchises();
+				this.franchises.SelectedIndex = this.franchises.Items.Count - 1;
+			}
+			else if (e.Key == Key.Escape)
+			{
+				this.franchises.Visibility = Visibility.Visible;
+				this.newFranchise.Visibility = Visibility.Collapsed;
 			}
 		}
 
@@ -122,18 +128,23 @@ namespace ACP_GUI
 
 		private void DelCosplan_Click(object sender, RoutedEventArgs e)
 		{
-			if (this.selectedCosplan == null)
+			if (this.selectedCosplan != null
+				&& MessageBox.Show("Wollen Sie das ausgewählte Cosplan wirklich löschen?", "Löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 			{
-				return;
+				this.core.DeleteCosplan((int)this.selectedCosplan);
+				this.ActualizeData();
 			}
-
-			this.core.DeleteCosplan((int)this.selectedCosplan);
-			this.ActualizeData();
 		}
 
 		private void Einstellungen_Click(object sender, RoutedEventArgs e)
 		{
+			Einstellungen einstellungen = new Einstellungen();
+			einstellungen.ShowDialog();
 
+			if (einstellungen.ResetNummern)
+			{
+				this.ActualizeData();
+			}
 		}
 
 		private void ColNummer_Click(object sender, RoutedEventArgs e)
@@ -333,6 +344,24 @@ namespace ACP_GUI
 			{
 				grid.Background = CosplanHover;
 				this.selectedCosplan = null;
+			}
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (UserSettings.FenstergroesseMerken)
+			{
+				UserSettings.SaveWidth("MainWindow", this.Width.ToInt());
+				UserSettings.SaveHeight("MainWindow", this.Height.ToInt());
+			}
+		}
+
+		private void Window_Initialized(object sender, EventArgs e)
+		{
+			if (UserSettings.FenstergroesseMerken)
+			{
+				this.Width = UserSettings.GetWidth("MainWindow");
+				this.Height = UserSettings.GetHeight("MainWindow");
 			}
 		}
 	}

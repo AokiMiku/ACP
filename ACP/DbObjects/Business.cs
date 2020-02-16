@@ -13,6 +13,7 @@ namespace ACP
 	using ApS;
 	using ApS.Databases;
 	using ApS.Databases.Firebird;
+	using FirebirdSql.Data.FirebirdClient;
 
 	/// <summary>
 	/// Basisklasse für Business-Objekte
@@ -25,15 +26,24 @@ namespace ACP
 		{
 			get { return this.fbSave; }
 		}
-		public Business() : base()
-		{
-
-		}
 
 		protected Business(string tabelle, string spalten,
 			string where, string orderBy, bool read,
 			SqlAction eSqlAction) : base(tabelle)
 		{
+			if (string.IsNullOrEmpty(ApS.Databases.Settings.ConnectionString))
+			{
+				FbConnectionStringBuilder fbConnString = new FbConnectionStringBuilder
+				{
+					ServerType = FbServerType.Embedded,
+					UserID = "sysdba",
+					Password = " ",
+
+					Database = Services.GetAppDir() + @"\Datenbank\ACP.fdb"
+				};
+				ApS.Databases.Settings.ConnectionString = fbConnString.ToString();
+			}
+
 			this.tabelle = tabelle;
 			this.spalten = spalten;
 			this.where = where;
@@ -93,32 +103,32 @@ namespace ACP
 		/// <summary>
 		/// abgeleitete Where wg. Prüfung _ in Like-Suche
 		/// </summary>
-		public override string Where
-		{
-			get
-			{
-				return base.where;
-			}
-			set
-			{
-				if (value.IndexOf("_") != -1 && value.ToUpper().IndexOf("LIKE") != -1)
-				{
-					string[] a = value.Split(' ');
-					string sValue = "";
-					foreach (string s in a)
-					{
-						if (s.IndexOf("%") != -1 && s.IndexOf("_") != -1 && s.IndexOf("[_]") != -1)
-						{
-							sValue += s.Replace("_", "[_]") + " ";
-						}
-						else
-							sValue += s + " ";
-					}
-					value = sValue;
-				}
-				base.where = value;
-			}
-		}
+		//public string Where
+		//{
+		//	get
+		//	{
+		//		return base.where;
+		//	}
+		//	set
+		//	{
+		//		if (value.IndexOf("_") != -1 && value.ToUpper().IndexOf("LIKE") != -1)
+		//		{
+		//			string[] a = value.Split(' ');
+		//			string sValue = "";
+		//			foreach (string s in a)
+		//			{
+		//				if (s.IndexOf("%") != -1 && s.IndexOf("_") != -1 && s.IndexOf("[_]") != -1)
+		//				{
+		//					sValue += s.Replace("_", "[_]") + " ";
+		//				}
+		//				else
+		//					sValue += s + " ";
+		//			}
+		//			value = sValue;
+		//		}
+		//		base.where = value;
+		//	}
+		//}
 
 		public string OrderBy
 		{
@@ -179,11 +189,7 @@ namespace ACP
 
 				string sSql = "";
 
-				Business oB = new Business
-				{
-					tabelle = oDs.Tables[0].TableName.Replace("dba", ""),
-					spalten = sColumns
-				};
+				Business oB = new Business(oDs.Tables[0].TableName.Replace("dba", ""), sColumns, "", "", false, SqlAction.Null);
 				oB.tabelle = oB.tabelle.Replace(".", "");
 				if (oB.tabelle.EndsWith("V"))
 					oB.tabelle = oB.tabelle.Substring(0, oB.tabelle.Length - 1);

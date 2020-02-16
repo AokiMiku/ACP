@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
-        Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0">
+        Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0" Closing="Window_Closing" Initialized="Window_Initialized" Loaded="Window_Loaded">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="5" />
@@ -28,6 +28,26 @@
 						<TextBlock Text="Allgemeines" />
 					</DockPanel>
 				</TabItem.Header>
+
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<CheckBox Name="letztesFranchiseOeffnen" Content="Bei Programmstart zuletzt geöffnetes Franchise öffnen." Grid.Row="0" VerticalAlignment="Center"></CheckBox>
+					<CheckBox Name="fensterGroesseMerken" Content="Fenstergröße beim Schließen merken." Grid.Row="1" VerticalAlignment="Center" ></CheckBox>
+					<DockPanel Grid.Row="2">
+						<Button Name="resetCosplanNummer" Content="Nummern zurücksetzen" Click="ResetCosplanNummer_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+						<TextBlock Text="Setzt die Nummern der Cospläne zurück, sodass Lücken durch eventuell gelöschte Einträge wieder geschlossen werden." TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+					</DockPanel>
+					
+				</Grid>
 			</TabItem>
 			<TabItem>
 				<TabItem.Header>
@@ -40,7 +60,7 @@
 			</TabItem>
 		</TabControl>
 
-		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">
+		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
 			<Label Height="10" />
 			<local:SaveCancel Speichern="SaveCancel_Speichern" Abbrechen="SaveCancel_Abbrechen" ></local:SaveCancel>
 		</StackPanel>

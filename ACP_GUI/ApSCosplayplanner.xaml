@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
         Title="ApS Cosplayplanner" MinHeight="400" MinWidth="700" Loaded="Window_Loaded" Height="0" Width="0"
+		Closing="Window_Closing" Initialized="Window_Initialized"
 		>
 	<Grid>
 		<Grid.ColumnDefinitions>
