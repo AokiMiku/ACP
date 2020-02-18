@@ -169,7 +169,6 @@ namespace ACP
 			get { return null; }
 		}
 
-
 		public static void SQLExport(Business oB, string sFile, bool bCurrentRecord)
 		{
 			Business.SQLExport(oB.DataSet, sFile, bCurrentRecord);
@@ -196,8 +195,7 @@ namespace ACP
 
 				if (System.IO.File.Exists(sFile))
 					System.IO.File.Delete(sFile);
-
-
+				
 				Services.WriteLog(sFile, "-- " + oB.tabelle);
 				if (bCurrentRecord)
 					oB.Where = Services.WhereNummer(oDs.GetInt("NUMMER"));
@@ -276,6 +274,5 @@ namespace ACP
 			return bReturn;
 		}
 		#endregion Save-Methoden
-
 	}
 }

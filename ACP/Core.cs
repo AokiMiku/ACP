@@ -17,9 +17,7 @@ namespace ACP
 		#endregion
 
 		public Core()
-		{
-			
-		}
+		{ }
 
 		#region Franchises
 		public void SaveFranchise(string name)
