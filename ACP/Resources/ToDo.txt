@@ -1,0 +1,8 @@
+TODO ACP (! - TODO; ? - Testing)
+
+! erledigen
+! farben in einstellungen aendern
+! neue spalte in cosplans fuer cosplaypartner
+! conventions
+! alle cosplans anzeigen
+? update-funktion
