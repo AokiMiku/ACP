@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ACP
+﻿namespace ACP
 {
-	using FirebirdSql.Data.FirebirdClient;
-	using ApS;
-
 	public class Core
 	{
 		#region Felder

@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace ACP_GUI
+﻿namespace ACP_GUI
 {
+	using System;
+	using System.Windows;
+	using System.Windows.Controls;
+	using System.Windows.Input;
+	using System.Windows.Media;
+	using System.Windows.Media.Imaging;
+
 	using ACP;
 	using ApS;
 
@@ -23,6 +15,16 @@ namespace ACP_GUI
 	/// </summary>
 	public partial class ApSCosplayplanner : Window
 	{
+		#region Constants
+		private const string MessageBoxDeleteFranchise = "Soll das ausgewählte Franchise wirklich gelöscht werden? Alle zugehörigen Cospläne werden dabei unwiderruflich gelöscht.";
+		private const string MessageBoxDeleteCosplan = "Soll das ausgewählte Cosplan wirklich gelöscht werden?";
+		private const string CaptionDelete = "Löschen?";
+		private const string PictureIcon = @"\Resources\Icons\picture.ico";
+		private const string Arrow_UpIcon = @"\Resources\Icons\arrow_up.ico";
+		private const string Arrow_DownIcon = @"\Resources\Icons\arrow_down.ico";
+		private const string WindowName = "MainWindow";
+		#endregion
+
 		private Core core;
 		private int? selectedCosplan;
 		private SolidColorBrush CosplanHover = Brushes.Lavender;
@@ -35,6 +37,10 @@ namespace ACP_GUI
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			if (UserSettings.Updates && UserSettings.LetztesUpdateAm.AddDays(UserSettings.UpdateAlleXTage) <= DateTime.Now.Date)
+			{
+				ACP_GUI.Updater.CheckForUpdate();
+			}
 			this.core = new Core
 			{
 				CosplansOrderBy = Core.OrderBy.Nummer_asc
@@ -47,7 +53,6 @@ namespace ACP_GUI
 			this.franchises.Visibility = Visibility.Collapsed;
 			this.newFranchise.Visibility = Visibility.Visible;
 			this.newFranchise.Focus();
-			//this.core.SaveFranchise(AddFranchise.ShowModal());
 		}
 
 		private void NewFranchise_KeyDown(object sender, KeyEventArgs e)
@@ -73,7 +78,7 @@ namespace ACP_GUI
 		private void DelFranchise_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.franchises.SelectedItem != null 
-				&& MessageBox.Show("Wollen Sie das ausgewählte Franchise wirklich löschen? Alle zugehörigen Cospläne werden dabei unwiderruflich gelöscht.", "Löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				&& MessageBox.Show(MessageBoxDeleteFranchise, CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 			{
 				this.core.DeleteFranchise(((Franchises4Dropdown)this.franchises.SelectedItem).Nummer);
 				this.ActualizeFanchises();
@@ -129,7 +134,7 @@ namespace ACP_GUI
 		private void DelCosplan_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.selectedCosplan != null
-				&& MessageBox.Show("Wollen Sie das ausgewählte Cosplan wirklich löschen?", "Löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				&& MessageBox.Show(MessageBoxDeleteCosplan, CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 			{
 				this.core.DeleteCosplan((int)this.selectedCosplan);
 				this.ActualizeData();
@@ -156,13 +161,13 @@ namespace ACP_GUI
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Nummer_desc;
 				this.colNummerIcon.Visibility = Visibility.Visible;
-				this.colNummerIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_up.ico", UriKind.Relative));
+				this.colNummerIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
 			}
 			else
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Nummer_asc;
 				this.colNummerIcon.Visibility = Visibility.Visible;
-				this.colNummerIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_down.ico", UriKind.Relative));
+				this.colNummerIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
 			}
 			ActualizeData();
 		}
@@ -176,13 +181,13 @@ namespace ACP_GUI
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Name_desc;
 				this.colNameIcon.Visibility = Visibility.Visible;
-				this.colNameIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_up.ico", UriKind.Relative));
+				this.colNameIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
 			}
 			else
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Name_asc;
 				this.colNameIcon.Visibility = Visibility.Visible;
-				this.colNameIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_down.ico", UriKind.Relative));
+				this.colNameIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
 			}
 			ActualizeData();
 		}
@@ -196,13 +201,13 @@ namespace ACP_GUI
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Erledigt_desc;
 				this.colErledigtIcon.Visibility = Visibility.Visible;
-				this.colErledigtIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_up.ico", UriKind.Relative));
+				this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
 			}
 			else
 			{
 				this.core.CosplansOrderBy = Core.OrderBy.Erledigt_asc;
 				this.colErledigtIcon.Visibility = Visibility.Visible;
-				this.colErledigtIcon.Source = new BitmapImage(new Uri(@"\Resources\Icons\arrow_down.ico", UriKind.Relative));
+				this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
 			}
 			ActualizeData();
 		}
@@ -222,6 +227,19 @@ namespace ACP_GUI
 			{
 				this.franchises.Items.Add(new Franchises4Dropdown(this.core.Franchises.Nummer, this.core.Franchises.Name));
 				this.core.Franchises.Skip();
+			}
+
+			if (UserSettings.BeiProgrammstartLetztesFranchiseOeffnen && UserSettings.ZuletztGeoffnetesFranchise != 0)
+			{
+				foreach (var franchise in this.franchises.Items)
+				{
+					Franchises4Dropdown f = (Franchises4Dropdown)franchise;
+					if (f.Nummer == UserSettings.ZuletztGeoffnetesFranchise)
+					{
+						this.franchises.SelectedItem = franchise;
+						break;
+					}
+				}
 			}
 		}
 
@@ -288,7 +306,7 @@ namespace ACP_GUI
 				};
 				Image imageBilder = new Image
 				{
-					Source = new BitmapImage(new Uri(@"\Resources\Icons\picture.ico", UriKind.Relative))
+					Source = new BitmapImage(new Uri(PictureIcon, UriKind.Relative))
 				};
 				buttonBilder.Content = imageBilder;
 				Grid.SetColumn(buttonBilder, 8);
@@ -351,8 +369,8 @@ namespace ACP_GUI
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{
-				UserSettings.SaveWidth("MainWindow", this.Width.ToInt());
-				UserSettings.SaveHeight("MainWindow", this.Height.ToInt());
+				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
+				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
 			}
 		}
 
@@ -360,8 +378,8 @@ namespace ACP_GUI
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{
-				this.Width = UserSettings.GetWidth("MainWindow");
-				this.Height = UserSettings.GetHeight("MainWindow");
+				this.Width = UserSettings.GetWidth(WindowName);
+				this.Height = UserSettings.GetHeight(WindowName);
 			}
 		}
 	}

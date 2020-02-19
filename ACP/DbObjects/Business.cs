@@ -39,7 +39,7 @@ namespace ACP
 					UserID = "sysdba",
 					Password = " ",
 
-					Database = Services.GetAppDir() + @"\Datenbank\ACP.fdb"
+					Database = Services.GetAppDir() + @"\Daten\ACP.fdb"
 				};
 				ApS.Databases.Settings.ConnectionString = fbConnString.ToString();
 			}

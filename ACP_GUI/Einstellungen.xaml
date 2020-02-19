@@ -37,11 +37,10 @@
 						<RowDefinition />
 						<RowDefinition />
 						<RowDefinition />
-						<RowDefinition />
 					</Grid.RowDefinitions>
 
 					<CheckBox Name="letztesFranchiseOeffnen" Content="Bei Programmstart zuletzt geöffnetes Franchise öffnen." Grid.Row="0" VerticalAlignment="Center"></CheckBox>
-					<CheckBox Name="fensterGroesseMerken" Content="Fenstergröße beim Schließen merken." Grid.Row="1" VerticalAlignment="Center" ></CheckBox>
+					<CheckBox Name="fensterGroesseMerken" Content="Fenstergrößen beim Schließen merken." Grid.Row="1" VerticalAlignment="Center" ></CheckBox>
 					<DockPanel Grid.Row="2">
 						<Button Name="resetCosplanNummer" Content="Nummern zurücksetzen" Click="ResetCosplanNummer_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBlock Text="Setzt die Nummern der Cospläne zurück, sodass Lücken durch eventuell gelöschte Einträge wieder geschlossen werden." TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right"/>
@@ -58,11 +57,40 @@
 					</DockPanel>
 				</TabItem.Header>
 			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<DockPanel>
+						<TextBlock Text="Updates" />
+					</DockPanel>
+				</TabItem.Header>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<CheckBox Name="updatesAktiv" Content="Automatische Updates aktiv" HorizontalAlignment="Left" VerticalAlignment="Center" Click="UpdatesAktiv_Click" />
+					<Button Name="updateLaden" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Click="UpdateLaden_Click" >
+						<DockPanel>
+							<TextBlock Text="Jetzt nach Update suchen" />
+						</DockPanel>
+					</Button>
+					<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+						<Label Content="Automatisch alle " />
+						<TextBox Name="updateIntervall" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="30" />
+						<Label Content=" Tage nach neuem Update suchen." />
+					</DockPanel>
+				</Grid>
+			</TabItem>
 		</TabControl>
 
 		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
-			<Label Height="10" />
-			<local:SaveCancel Speichern="SaveCancel_Speichern" Abbrechen="SaveCancel_Abbrechen" ></local:SaveCancel>
+			<Label Height="5" />
+			<local:SaveCancel x:Name="saveCancel"></local:SaveCancel>
 		</StackPanel>
 	</Grid>
 </Window>

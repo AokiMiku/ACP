@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ACP
+﻿namespace ACP
 {
 	using ApS;
+	using System;
 
 	public static class UserSettings
 	{
@@ -23,10 +18,36 @@ namespace ACP
 			set { Settings.SetSetting("BeiProgrammstartLetztesFranchiseOeffnen", value); }
 		}
 
+		public static int ZuletztGeoffnetesFranchise
+		{
+			get { return Settings.GetSetting("ZuletztGeoffnetesFranchise").ToInt(); }
+			set { Settings.SetSetting("ZuletztGeoffnetesFranchise", value); }
+		}
+
 		public static bool FenstergroesseMerken
 		{
 			get { return Settings.GetSetting("FenstergroesseMerken").ToBoolean(); }
 			set { Settings.SetSetting("FenstergroesseMerken", value); }
+		}
+		#endregion
+
+		#region Updates
+		public static bool Updates
+		{
+			get { return Settings.GetSetting("Updates").ToBoolean(); }
+			set { Settings.SetSetting("Updates", value); }
+		}
+
+		public static DateTime LetztesUpdateAm
+		{
+			get { return Settings.GetSetting("LetztesUpdateAm").ToDateTime(); }
+			set { Settings.SetSetting("LetztesUpdateAm", value); }
+		}
+
+		public static int UpdateAlleXTage
+		{
+			get { return Settings.GetSetting("UpdateAlleXTage").ToInt(); }
+			set { Settings.SetSetting("UpdateAlleXTage", value); }
 		}
 		#endregion
 

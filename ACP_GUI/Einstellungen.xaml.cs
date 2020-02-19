@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace ACP_GUI
+﻿namespace ACP_GUI
 {
+	using System;
+	using System.Windows;
+
 	using ACP;
 	using ApS;
 
@@ -22,6 +11,10 @@ namespace ACP_GUI
     /// </summary>
     public partial class Einstellungen : Window
     {
+		#region Constants
+		private const string WindowName = "Einstellungen";
+		#endregion
+
 		public bool ResetNummern = false;
 
         public Einstellungen()
@@ -59,8 +52,8 @@ namespace ACP_GUI
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{
-				UserSettings.SaveWidth("Einstellungen", this.Width.ToInt());
-				UserSettings.SaveHeight("Einstellungen", this.Height.ToInt());
+				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
+				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
 			}
 		}
 
@@ -68,15 +61,48 @@ namespace ACP_GUI
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{
-				this.Width = UserSettings.GetWidth("Einstellungen");
-				this.Height = UserSettings.GetHeight("Einstellungen");
+				this.Width = UserSettings.GetWidth(WindowName);
+				this.Height = UserSettings.GetHeight(WindowName);
 			}
+			this.saveCancel.Speichern += SaveCancel_Speichern;
+			this.saveCancel.Abbrechen += SaveCancel_Abbrechen;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			this.letztesFranchiseOeffnen.IsChecked = UserSettings.BeiProgrammstartLetztesFranchiseOeffnen;
 			this.fensterGroesseMerken.IsChecked = UserSettings.FenstergroesseMerken;
+			this.updatesAktiv.IsChecked = UserSettings.Updates;
+			SetUpdateSection();
+			if (UserSettings.Updates)
+			{
+				if (UserSettings.UpdateAlleXTage > 0)
+				{
+					this.updateIntervall.Text = UserSettings.UpdateAlleXTage.ToString();
+				}
+			}
+		}
+
+		private void UpdateLaden_Click(object sender, RoutedEventArgs e)
+		{
+			ACP_GUI.Updater.CheckForUpdate();
+		}
+
+		private void UpdatesAktiv_Click(object sender, RoutedEventArgs e)
+		{
+			SetUpdateSection();
+		}
+
+		private void SetUpdateSection()
+		{
+			if (this.updatesAktiv.IsChecked == true)
+			{
+				this.updateIntervall.IsEnabled = true;
+			}
+			else
+			{
+				this.updateIntervall.IsEnabled = false;
+			}
 		}
 	}
 }
