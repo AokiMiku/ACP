@@ -11,7 +11,7 @@
 		{
 			ApS.Version.MajorVersion = 0;
 			ApS.Version.MinorVersion = 1;
-			ApS.Version.PatchNumber = 1;
+			ApS.Version.PatchNumber = 2;
 		}
 	}
 }

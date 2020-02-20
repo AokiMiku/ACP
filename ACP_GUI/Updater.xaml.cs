@@ -48,7 +48,7 @@
 		public static void CheckForUpdate()
 		{
 			ACP.Updater up = new ACP.Updater();
-			if (up.CheckForUpdate(UserSettings.LetztesUpdateAm, "AKV"))
+			if (up.CheckForUpdate(UserSettings.LetztesUpdateAm, "ACP"))
 			{
 				if (MessageBox.Show(MessageBoxUpdateVerfuegbar, CaptionUpdateVerfuegbar, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
