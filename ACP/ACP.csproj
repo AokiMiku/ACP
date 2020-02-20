@@ -54,6 +54,7 @@
     <Compile Include="DbObjects\CosplansV.cs" />
     <Compile Include="DbObjects\Einstellungen.cs" />
     <Compile Include="DbObjects\Franchises.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Franchises4Dropdown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />

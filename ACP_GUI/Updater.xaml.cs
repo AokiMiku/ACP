@@ -9,6 +9,11 @@
 	/// </summary>
 	public partial class Updater : Window
     {
+		#region Constants
+		private const string MessageBoxUpdateVerfuegbar = "Es ist eine neue Version verfügbar. Wollen Sie sie jetzt herunterladen und installieren?";
+		private const string CaptionUpdateVerfuegbar = "Update erforderlich";
+		#endregion
+
 		private ACP.Updater updater;
 
 		public Updater()
@@ -45,7 +50,7 @@
 			ACP.Updater up = new ACP.Updater();
 			if (up.CheckForUpdate(UserSettings.LetztesUpdateAm, "AKV"))
 			{
-				if (MessageBox.Show("Es ist eine neue Version verfügbar. Wollen Sie sie jetzt herunterladen und installieren?", "Update erforderlich", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				if (MessageBox.Show(MessageBoxUpdateVerfuegbar, CaptionUpdateVerfuegbar, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
 					ACP_GUI.Updater upd = new ACP_GUI.Updater();
 					upd.Start(up);

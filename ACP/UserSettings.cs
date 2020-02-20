@@ -11,6 +11,7 @@
 		{
 			Settings = new Einstellungen();
 		}
+
 		#region Allgemein
 		public static bool BeiProgrammstartLetztesFranchiseOeffnen
 		{
@@ -28,6 +29,18 @@
 		{
 			get { return Settings.GetSetting("FenstergroesseMerken").ToBoolean(); }
 			set { Settings.SetSetting("FenstergroesseMerken", value); }
+		}
+
+		public static bool LetzteSortierungMerken
+		{
+			get { return Settings.GetSetting("LetzteSortierungMerken").ToBoolean(); }
+			set { Settings.SetSetting("LetzteSortierungMerken", value); }
+		}
+
+		public static Core.OrderBy LetzteSortierung
+		{
+			get { return Settings.GetSetting("LetzteSortierung").ToOrderBy(); }
+			set { Settings.SetSetting("LetzteSortierung", value.ToString()); }
 		}
 		#endregion
 

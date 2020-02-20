@@ -22,40 +22,11 @@ namespace ACP
 	{
 		protected DataSetAdvanced _oDsAddition;
 		public DataSetAdvanced _oDsInfoDataSet = null;
-		public Save FbSave
-		{
-			get { return this.fbSave; }
-		}
 
 		protected Business(string tabelle, string spalten,
 			string where, string orderBy, bool read,
-			SqlAction eSqlAction) : base(tabelle)
-		{
-			if (string.IsNullOrEmpty(ApS.Databases.Settings.ConnectionString))
-			{
-				FbConnectionStringBuilder fbConnString = new FbConnectionStringBuilder
-				{
-					ServerType = FbServerType.Embedded,
-					UserID = "sysdba",
-					Password = " ",
-
-					Database = Services.GetAppDir() + @"\Daten\ACP.fdb"
-				};
-				ApS.Databases.Settings.ConnectionString = fbConnString.ToString();
-			}
-
-			this.tabelle = tabelle;
-			this.spalten = spalten;
-			this.where = where;
-			this.orderBy = orderBy;
-			if (read)
-				this.Read();
-
-			if (eSqlAction != SqlAction.Null)
-			{
-				this.fbSave.Action = eSqlAction;
-				this.saveKind = this.SQLActionToDefines(eSqlAction);
-			}
+			SqlAction eSqlAction) : base(tabelle, spalten, where, orderBy, read, eSqlAction, "ACP.FDB")
+		{ 
 		}
 		public void InitInfoDataSet()
 		{

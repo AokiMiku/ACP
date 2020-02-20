@@ -13,6 +13,8 @@
     {
 		#region Constants
 		private const string WindowName = "Einstellungen";
+		private const string MessageBoxResetCosplanNummer = "Nummern wurden zurückgesetzt.";
+		private const string CaptionCosplanNummer = "Fertig";
 		#endregion
 
 		public bool ResetNummern = false;
@@ -34,6 +36,11 @@
 				UserSettings.FenstergroesseMerken = this.fensterGroesseMerken.IsChecked.ToBoolean();
 			}
 
+			if (this.letzteSortierungMerken.IsChecked != UserSettings.LetzteSortierungMerken)
+			{
+				UserSettings.LetzteSortierungMerken = this.letzteSortierungMerken.IsChecked.ToBoolean();
+			}
+
 			this.Close();
 		}
 
@@ -46,6 +53,8 @@
 		{
 			this.ResetNummern = true;
 			Core.ResetCosplanNummern();
+			MessageBox.Show(MessageBoxResetCosplanNummer, CaptionCosplanNummer, MessageBoxButton.OK);
+			this.Close();
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -72,6 +81,7 @@
 		{
 			this.letztesFranchiseOeffnen.IsChecked = UserSettings.BeiProgrammstartLetztesFranchiseOeffnen;
 			this.fensterGroesseMerken.IsChecked = UserSettings.FenstergroesseMerken;
+			this.letzteSortierungMerken.IsChecked = UserSettings.LetzteSortierungMerken;
 			this.updatesAktiv.IsChecked = UserSettings.Updates;
 			SetUpdateSection();
 			if (UserSettings.Updates)

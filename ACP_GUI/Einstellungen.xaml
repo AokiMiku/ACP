@@ -37,11 +37,13 @@
 						<RowDefinition />
 						<RowDefinition />
 						<RowDefinition />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 
-					<CheckBox Name="letztesFranchiseOeffnen" Content="Bei Programmstart zuletzt geöffnetes Franchise öffnen." Grid.Row="0" VerticalAlignment="Center"></CheckBox>
-					<CheckBox Name="fensterGroesseMerken" Content="Fenstergrößen beim Schließen merken." Grid.Row="1" VerticalAlignment="Center" ></CheckBox>
-					<DockPanel Grid.Row="2">
+					<CheckBox Name="letztesFranchiseOeffnen" Content="Bei Programmstart zuletzt geöffnetes Franchise öffnen." Grid.Row="0" VerticalAlignment="Center" />
+					<CheckBox Name="letzteSortierungMerken" Content="Bei Programmstart letzte Sortierung wiederherstellen." Grid.Row="1" VerticalAlignment="Center" />
+					<CheckBox Name="fensterGroesseMerken" Content="Fenstergrößen beim Schließen merken." Grid.Row="2" VerticalAlignment="Center" />
+					<DockPanel Grid.Row="3">
 						<Button Name="resetCosplanNummer" Content="Nummern zurücksetzen" Click="ResetCosplanNummer_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 						<TextBlock Text="Setzt die Nummern der Cospläne zurück, sodass Lücken durch eventuell gelöschte Einträge wieder geschlossen werden." TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 					</DockPanel>

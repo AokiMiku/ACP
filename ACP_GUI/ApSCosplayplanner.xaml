@@ -44,18 +44,18 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
-			<Label Content="Franchise: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
-			<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" >
-				<ComboBox Name="franchises" Width="150" SelectionChanged="Franchises_SelectionChanged" />
-				<TextBox Name="newFranchise" Width="150" Visibility="Collapsed" KeyDown="NewFranchise_KeyDown" />
+			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" >
+				<CheckBox Content="Franchise: " Name="franchisesEnabled" IsChecked="True" Click="FranchisesEnabled_Click"  VerticalAlignment="Center"/>
+				<ComboBox Name="franchises" Width="150" SelectionChanged="Franchises_SelectionChanged" HorizontalContentAlignment="Center" />
+				<TextBox Name="newFranchise" Width="150" Visibility="Collapsed" KeyDown="NewFranchise_KeyDown" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 				<DockPanel >
 					<Label Width="3"/>
-					<Button Name="addFranchise" Width="20" Click="AddFranchise_Click" Background="Transparent" BorderThickness="0" >
-						<Image Source="Resources/Icons/add.ico" />
+					<Button Name="addFranchise" Click="AddFranchise_Click" Background="Transparent" BorderThickness="0" >
+						<Image Source="Resources/Icons/add.ico" Width="20" />
 					</Button>
 					<Label Width="3"/>
-					<Button Name="delFranchise" Width="20" Click="DelFranchise_Click" Background="Transparent" BorderThickness="0" >
-						<Image Source="Resources/Icons/del.ico" />
+					<Button Name="delFranchise" Click="DelFranchise_Click" Background="Transparent" BorderThickness="0" >
+						<Image Source="Resources/Icons/del.ico" Width="20" />
 					</Button>
 				</DockPanel>
 			</DockPanel>
@@ -68,8 +68,8 @@
 				</DockPanel>
 			</Button>
 
-			<Label Content="Cosplans: " HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" />
-			<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
+			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+				<Label Content="Cosplans: "  />
 				<Button Name="addCosplan" Click="AddCosplan_Click" Background="Transparent" BorderThickness="0" >
 					<Image Source="Resources/Icons/add.ico" Width="20" />
 				</Button>
@@ -111,15 +111,6 @@
 
 			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="6">
 				<StackPanel Name="data" >
-					<!--<Grid Height="30">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
-					</Grid>-->
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>

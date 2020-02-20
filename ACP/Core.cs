@@ -8,7 +8,22 @@
 		#endregion
 
 		public Core()
-		{ }
+		{
+			try
+			{
+				this.CosplansOrderBy = UserSettings.LetzteSortierung;
+			}
+			catch (System.Exception ex)
+			{
+				ApS.Services.WriteErrorLog(ex.Message);
+				this.CosplansOrderBy = OrderBy.Nummer_asc;
+			}
+		}
+
+		~Core()
+		{
+			UserSettings.LetzteSortierung = this.CosplansOrderBy;
+		}
 
 		#region Franchises
 		public void SaveFranchise(string name)
@@ -58,13 +73,17 @@
 		#endregion
 
 		#region Cosplans
-		public void SaveCosplan(string name, int franchise_nr, int? nummer = null, bool erledigt = false)
+		public void SaveCosplan(string name = "", int franchise_nr = 0, int? nummer = null, bool erledigt = false)
 		{
-			Cosplans cosplans = new Cosplans
+			Cosplans cosplans = new Cosplans();
+			if (!string.IsNullOrEmpty(name))
 			{
-				Name = name,
-				Franchise_Nr = franchise_nr
-			};
+				cosplans.Name = name;
+			}
+			if (franchise_nr > 0)
+			{
+				cosplans.Franchise_Nr = franchise_nr;
+			}
 
 			if (nummer == null)
 			{
@@ -84,7 +103,14 @@
 			Cosplans cosplans = new Cosplans();
 			if (franchise_nr != null)
 			{
-				cosplans.Where = "Franchise_Nr = " + franchise_nr;
+				if (franchise_nr == 0)
+				{
+					cosplans.Where = "Nummer is not null";
+				}
+				else
+				{
+					cosplans.Where = "Franchise_Nr = " + franchise_nr;
+				}
 			}
 			cosplans.OrderBy = this.CosplansOrderBy.ToString().Replace("_", " ");
 			cosplans.Read();
@@ -149,24 +175,42 @@
 		{
 			using (Cosplans cosplans = new Cosplans())
 			{
+				// read highest number
 				cosplans.Where = "Nummer is not null";
-				cosplans.OrderBy = "Nummer asc";
-				cosplans.Read();
+				cosplans.OrderBy = "Nummer desc";
+				cosplans.AnzahlTop = 1;
 
-				int newNummer = 1;
+				cosplans.Read();
+				int newNummer = cosplans.Nummer + 1;
+
+				cosplans.OrderBy = "Franchise_Nr asc, Nummer asc";
+				cosplans.Read();
 
 				while (!cosplans.EoF)
 				{
 					cosplans.Where = "Nummer = " + cosplans.Nummer;
-					cosplans.Nummer = newNummer;
+					cosplans.Nummer = newNummer++;
 
 					cosplans.Save(ApS.Databases.SqlAction.Update);
 
-					newNummer++;
 					cosplans.Skip();
 				}
+				// now reset all 
+				cosplans.Where = "Nummer is not null";
+				cosplans.Read();
+				newNummer = 1;
+				while (!cosplans.EoF)
+				{
+					cosplans.Where = "Nummer = " + cosplans.Nummer;
+					cosplans.Nummer = newNummer++;
+
+					cosplans.Save(ApS.Databases.SqlAction.Update);
+					
+					cosplans.Skip();
+				}
+
 				string stmt = "ALTER SEQUENCE GEN_COSPLANS_ID RESTART WITH " + --newNummer + ";";
-				cosplans.FbSave.Execute(stmt);
+				cosplans.Execute(stmt);
 			}
 		}
 
