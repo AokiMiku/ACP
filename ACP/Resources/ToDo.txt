@@ -1,10 +1,18 @@
 TODO ACP (! - TODO; ? - Testing)
 
-?   erledigen
-!   farben in einstellungen aendern
-!   neue spalte in cosplans fuer cosplaypartner
-!   conventions
-?   alle cosplans anzeigen
-?   update-funktion
-!   in franchise dropdown jeweils anzahl anzeigen	
-!!! Bilder
+?	erledigen
+!	Farben in Einstellungen aendern
+!	neue Spalte in Cosplans fuer Cosplaypartner
+!	Conventions
+?	alle Cosplans anzeigen
+?	update-funktion
+!	in franchise dropdown jeweils anzahl anzeigen	
+!!!	Bilder
+!	Tableheader-Buttons durch Labels mit Click-Event ersetzen, um Hover-Effekt leichter zu ändern ... Dockpanel Click-Event?
+!	Cosplans in Liste filtern
+
+
+
+Bilder:
+zu welchem cosplay?
+anzeigebild (in cosplans)

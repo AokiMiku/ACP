@@ -17,7 +17,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="5" />
 			<RowDefinition />
-			<RowDefinition Height="5" />
+			<RowDefinition Height="9" />
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Column="1" Grid.Row="1" >
@@ -50,69 +50,78 @@
 				<TextBox Name="newFranchise" Width="150" Visibility="Collapsed" KeyDown="NewFranchise_KeyDown" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 				<DockPanel >
 					<Label Width="3"/>
-					<Button Name="addFranchise" Click="AddFranchise_Click" Background="Transparent" BorderThickness="0" >
+					<DockPanel Name="addFranchise" MouseLeftButtonUp="AddFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 						<Image Source="Resources/Icons/add.ico" Width="20" />
-					</Button>
+					</DockPanel>
 					<Label Width="3"/>
-					<Button Name="delFranchise" Click="DelFranchise_Click" Background="Transparent" BorderThickness="0" >
+					<DockPanel Name="delFranchise" MouseLeftButtonUp="DelFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 						<Image Source="Resources/Icons/del.ico" Width="20" />
-					</Button>
+					</DockPanel>
 				</DockPanel>
 			</DockPanel>
 
-			<Button Name="Einstellungen" Click="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Background="Transparent" >
-				<DockPanel>
+			<DockPanel Name="Einstellungen" MouseLeftButtonUp="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
+				<DockPanel HorizontalAlignment="Center" >
 					<Image Source="Resources/Icons/wheel.ico" Width="20"/>
 					<Label Width="3"/>
 					<TextBlock Text="Einstellungen" />
 				</DockPanel>
-			</Button>
+			</DockPanel>
 
 			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
 				<Label Content="Cosplans: "  />
-				<Button Name="addCosplan" Click="AddCosplan_Click" Background="Transparent" BorderThickness="0" >
+				<DockPanel Name="addCosplan" MouseLeftButtonUp="AddCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 					<Image Source="Resources/Icons/add.ico" Width="20" />
-				</Button>
+				</DockPanel>
 				<Label Width="3" />
-				<Button Name="delCosplan" Click="DelCosplan_Click" Background="Transparent" BorderThickness="0" >
+				<DockPanel Name="delCosplan" MouseLeftButtonUp="DelCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 					<Image Source="Resources/Icons/del.ico" Width="20" />
-				</Button>
+				</DockPanel>
 			</DockPanel>
 
-			<Button Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColNummer_Click">
-				<DockPanel>
+			<StackPanel Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" MouseLeftButtonUp="ColNummer_Click">
+				<Label Background="Black" Height="2" />
+				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12">
 					<TextBlock Text="Nummer" />
 					<Label Width="3" />
 					<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Visible" />
 				</DockPanel>
-			</Button>
+				<Label Background="Black" Height="2" />
+			</StackPanel>
 
-			<Button Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColName_Click">
-				<DockPanel>
+			<StackPanel Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" MouseLeftButtonUp="ColName_Click">
+				<Label Background="Black" Height="2" />
+				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12">
 					<TextBlock Text="Bezeichnung" />
 					<Label Width="3" />
 					<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
 				</DockPanel>
-			</Button>
+				<Label Background="Black" Height="2" />
+			</StackPanel>
 
-			<Button Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2" Click="ColErledigt_Click">
-				<DockPanel>
+			<!--<StackPanel Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="1" MouseLeftButtonUp="ColErledigt_Click">
+				<Label Background="Black" Height="2" />
+				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12" >
 					<TextBlock Text="Erledigt" />
 					<Label Width="3" />
 					<Image Name="colErledigtIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
 				</DockPanel>
-			</Button>
+				<Label Background="Black" Height="2" />
+			</StackPanel>
 
-			<Button Name="colBilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="1" BorderBrush="Black" Background="Transparent" BorderThickness="0,2">
-				<DockPanel>
+			<StackPanel Name="colBilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="1" >
+				<Label Background="Black" Height="2" HorizontalAlignment="Stretch" />
+				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12" Height="20" >
 					<TextBlock Text="Bilder" />
 				</DockPanel>
-			</Button>
+				<Label Background="Black" Height="2" HorizontalAlignment="Stretch" />
+			</StackPanel>-->
 
-			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="6">
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="6">
 				<StackPanel Name="data" >
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>
+		<TextBlock Text="0.0.0" Name="version" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="7" Foreground="Gray" />
 	</Grid>
 </Window>

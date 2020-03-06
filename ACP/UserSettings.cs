@@ -44,6 +44,41 @@
 		}
 		#endregion
 
+		#region Farben
+		public static string ButtonHover
+		{
+			get { return Settings.GetSetting("ButtonHover"); }
+			set { Settings.SetSetting("ButtonHover", value); }
+		}
+
+		public static string ButtonHoverDefault
+		{
+			get { return "Lavender"; }
+		}
+
+		public static string ButtonBackground
+		{
+			get { return Settings.GetSetting("ButtonBackground"); }
+			set { Settings.SetSetting("ButtonBackground", value); }
+		}
+
+		public static string ButtonBackgroundDefault
+		{
+			get { return "Transparent"; }
+		}
+
+		public static string SelectedBackground
+		{
+			get { return Settings.GetSetting("SelectedBackground"); }
+			set { Settings.SetSetting("SelectedBackground", value); }
+		}
+
+		public static string SelectedBackgroundDefault
+		{
+			get { return "MediumPurple"; }
+		}
+		#endregion
+
 		#region Updates
 		public static bool Updates
 		{

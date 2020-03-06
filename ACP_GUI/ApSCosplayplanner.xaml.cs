@@ -27,8 +27,6 @@
 
 		private Core core;
 		private int? selectedCosplan;
-		private SolidColorBrush CosplanHover = Brushes.Lavender;
-		private SolidColorBrush CosplanClick = Brushes.MediumPurple;
 
 		public ApSCosplayplanner()
 		{
@@ -37,6 +35,8 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			this.version.Text = ApS.Version.StringAppVersion;
+
 			if (UserSettings.Updates && UserSettings.LetztesUpdateAm.AddDays(UserSettings.UpdateAlleXTage) <= DateTime.Now.Date)
 			{
 				ACP_GUI.Updater.CheckForUpdate();
@@ -199,7 +199,7 @@
 		{
 			this.colNummerIcon.Visibility = Visibility.Hidden;
 			this.colNameIcon.Visibility = Visibility.Hidden;
-			this.colErledigtIcon.Visibility = Visibility.Hidden;
+			//this.colErledigtIcon.Visibility = Visibility.Hidden;
 
 			switch (this.core.CosplansOrderBy)
 			{
@@ -219,14 +219,14 @@
 					this.colNameIcon.Visibility = Visibility.Visible;
 					this.colNameIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
 					break;
-				case Core.OrderBy.Erledigt_asc:
-					this.colErledigtIcon.Visibility = Visibility.Visible;
-					this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
-					break;
-				case Core.OrderBy.Erledigt_desc:
-					this.colErledigtIcon.Visibility = Visibility.Visible;
-					this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
-					break;
+				//case Core.OrderBy.Erledigt_asc:
+				//	this.colErledigtIcon.Visibility = Visibility.Visible;
+				//	this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
+				//	break;
+				//case Core.OrderBy.Erledigt_desc:
+				//	this.colErledigtIcon.Visibility = Visibility.Visible;
+				//	this.colErledigtIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
+				//	break;
 				default:
 					break;
 			}
@@ -339,38 +339,39 @@
 				VerticalAlignment = VerticalAlignment.Center
 			};
 			Grid.SetColumn(labelName, 1);
-			Grid.SetColumnSpan(labelName, 6);
+			Grid.SetColumnSpan(labelName, 8);
 			grid.Children.Add(labelName);
 
-			CheckBox checkBoxErledigt = new CheckBox
-			{
-				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center
-			};
-			if (cosplans.Erledigt)
-			{
-				checkBoxErledigt.IsChecked = true;
-			}
-			checkBoxErledigt.Click += CheckBoxErledigt_Click;
-			Grid.SetColumn(checkBoxErledigt, 7);
-			Grid.SetColumnSpan(checkBoxErledigt, 1);
-			grid.Children.Add(checkBoxErledigt);
+			//CheckBox checkBoxErledigt = new CheckBox
+			//{
+			//	HorizontalAlignment = HorizontalAlignment.Center,
+			//	VerticalAlignment = VerticalAlignment.Center
+			//};
+			//if (cosplans.Erledigt)
+			//{
+			//	checkBoxErledigt.IsChecked = true;
+			//}
+			//checkBoxErledigt.Click += CheckBoxErledigt_Click;
+			//Grid.SetColumn(checkBoxErledigt, 7);
+			//Grid.SetColumnSpan(checkBoxErledigt, 1);
+			//grid.Children.Add(checkBoxErledigt);
 
-			Button buttonBilder = new Button
-			{
-				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center,
-				Width = 40,
-				Background = Brushes.Transparent,
-				BorderThickness = new Thickness(0)
-			};
-			Image imageBilder = new Image
-			{
-				Source = new BitmapImage(new Uri(PictureIcon, UriKind.Relative))
-			};
-			buttonBilder.Content = imageBilder;
-			Grid.SetColumn(buttonBilder, 8);
-			grid.Children.Add(buttonBilder);
+			//Button buttonBilder = new Button
+			//{
+			//	HorizontalAlignment = HorizontalAlignment.Center,
+			//	VerticalAlignment = VerticalAlignment.Center,
+			//	Width = 40,
+			//	Background = Brushes.Transparent,
+			//	BorderThickness = new Thickness(0)
+			//};
+			//buttonBilder.Click += ButtonBilder_Click;
+			//Image imageBilder = new Image
+			//{
+			//	Source = new BitmapImage(new Uri(PictureIcon, UriKind.Relative))
+			//};
+			//buttonBilder.Content = imageBilder;
+			//Grid.SetColumn(buttonBilder, 8);
+			//grid.Children.Add(buttonBilder);
 			grid.Height = 50;
 		}
 
@@ -384,7 +385,7 @@
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)
 		{
 			Grid grid = (Grid)sender;
-			if (grid.Background != CosplanClick)
+			if (grid.Background != Layout.SelectedBackground)
 			{
 				grid.Background = Brushes.Transparent;
 			}
@@ -393,9 +394,9 @@
 		private void Grid_MouseEnter(object sender, MouseEventArgs e)
 		{
 			Grid grid = (Grid)sender;
-			if (grid.Background != CosplanClick)
+			if (grid.Background != Layout.SelectedBackground)
 			{
-				grid.Background = CosplanHover;
+				grid.Background = Layout.ButtonHover;
 			}
 		}
 
@@ -408,7 +409,7 @@
 				foreach (UIElement item in this.data.Children)
 				{
 					Grid child = (Grid)item;
-					if (child.Background == CosplanClick)
+					if (child.Background == Layout.SelectedBackground)
 					{
 						child.Background = Brushes.Transparent;
 						break;
@@ -416,14 +417,16 @@
 				}
 			}
 
-			if (grid.Background == CosplanHover)
+			if (grid.Background == Layout.ButtonHover)
 			{
-				grid.Background = CosplanClick;
+				grid.Background = Layout.SelectedBackground;
 				this.selectedCosplan = ((Label)grid.Children[0]).Content.ToInt();
+
+				Cosplan.Show(this.selectedCosplan.ToInt());
 			}
 			else
 			{
-				grid.Background = CosplanHover;
+				grid.Background = Layout.ButtonHover;
 				this.selectedCosplan = null;
 			}
 		}
@@ -458,6 +461,16 @@
 			}
 
 			this.ActualizeData();
+		}
+
+		private void Button_MouseEnter(object sender, MouseEventArgs e)
+		{
+			Layout.Button_MouseEnter(sender);
+		}
+
+		private void Button_MouseLeave(object sender, MouseEventArgs e)
+		{
+			Layout.Button_MouseLeave(sender);
 		}
 	}
 }

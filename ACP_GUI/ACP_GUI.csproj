@@ -62,9 +62,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cosplan.xaml.cs">
+      <DependentUpon>Cosplan.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Einstellungen.xaml.cs">
       <DependentUpon>Einstellungen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Layout.cs" />
     <Compile Include="SaveCancel.xaml.cs">
       <DependentUpon>SaveCancel.xaml</DependentUpon>
     </Compile>
@@ -83,6 +88,10 @@
       <DependentUpon>ApSCosplayplanner.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Cosplan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Einstellungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
