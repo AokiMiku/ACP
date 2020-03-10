@@ -38,6 +38,9 @@
     <ApplicationIcon>Resources\Icons\ACP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomColorPicker">
+      <HintPath>..\..\ColorPicker\DropDownCustomColorPicker\bin\Release\CustomColorPicker.dll</HintPath>
+    </Reference>
     <Reference Include="FirebirdSql.Data.FirebirdClient">
       <HintPath>..\..\ApS\ApS.Databases\ApS.Databases.Firebird\firebird\FirebirdSql.Data.FirebirdClient.dll</HintPath>
       <Private>False</Private>

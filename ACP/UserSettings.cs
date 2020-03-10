@@ -47,7 +47,14 @@
 		#region Farben
 		public static string ButtonHover
 		{
-			get { return Settings.GetSetting("ButtonHover"); }
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("ButtonHover")))
+				{
+					return ButtonHoverDefault;
+				}
+				return Settings.GetSetting("ButtonHover");
+			}
 			set { Settings.SetSetting("ButtonHover", value); }
 		}
 
@@ -58,7 +65,14 @@
 
 		public static string ButtonBackground
 		{
-			get { return Settings.GetSetting("ButtonBackground"); }
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("ButtonBackground")))
+				{
+					return ButtonBackgroundDefault;
+				}
+				return Settings.GetSetting("ButtonBackground");
+			}
 			set { Settings.SetSetting("ButtonBackground", value); }
 		}
 
@@ -69,7 +83,14 @@
 
 		public static string SelectedBackground
 		{
-			get { return Settings.GetSetting("SelectedBackground"); }
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("SelectedBackground")))
+				{
+					return SelectedBackgroundDefault;
+				}
+				return Settings.GetSetting("SelectedBackground");
+			}
 			set { Settings.SetSetting("SelectedBackground", value); }
 		}
 

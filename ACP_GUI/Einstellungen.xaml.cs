@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Windows;
+	using System.Windows.Media;
 
 	using ACP;
 	using ApS;
@@ -16,6 +17,10 @@
 		#endregion
 
 		public bool ResetNummern = false;
+
+		private SolidColorBrush ButtonHover;
+		private SolidColorBrush ButtonBackground;
+		private SolidColorBrush SelectedBackground;
 
         public Einstellungen()
         {
@@ -37,6 +42,21 @@
 			if (this.letzteSortierungMerken.IsChecked != UserSettings.LetzteSortierungMerken)
 			{
 				UserSettings.LetzteSortierungMerken = this.letzteSortierungMerken.IsChecked.ToBoolean();
+			}
+
+			if (this.ButtonHover != null && this.ButtonHover != UserSettings.ButtonHover.ToSolidColorBrush())
+			{
+				UserSettings.ButtonHover = (Layout.ButtonHover = this.ButtonHover).ToString();
+			}
+
+			if (this.ButtonBackground != null && this.ButtonBackground != UserSettings.ButtonBackground.ToSolidColorBrush())
+			{
+				UserSettings.ButtonBackground = (Layout.ButtonBackground = this.ButtonBackground).ToString();
+			}
+
+			if (this.SelectedBackground != null && this.SelectedBackground != UserSettings.SelectedBackground.ToSolidColorBrush())
+			{
+				UserSettings.SelectedBackground = (Layout.SelectedBackground = this.SelectedBackground).ToString();
 			}
 
 			this.Close();
@@ -77,9 +97,20 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			//Allgemein
 			this.letztesFranchiseOeffnen.IsChecked = UserSettings.BeiProgrammstartLetztesFranchiseOeffnen;
 			this.fensterGroesseMerken.IsChecked = UserSettings.FenstergroesseMerken;
 			this.letzteSortierungMerken.IsChecked = UserSettings.LetzteSortierungMerken;
+
+			//Farben
+			this.ButtonHoverColor.SelectedColor = UserSettings.ButtonHover.ToSolidColorBrush().Color;
+			this.ButtonBackgroundColor.SelectedColor = UserSettings.ButtonBackground.ToSolidColorBrush().Color;
+			this.SelectedItemColor.SelectedColor = UserSettings.SelectedBackground.ToSolidColorBrush().Color;
+			this.ButtonHoverColor.SelectedColorChanged += ButtonHoverColor_SelectedColorChanged;
+			this.ButtonBackgroundColor.SelectedColorChanged += ButtonBackgroundColor_SelectedColorChanged;
+			this.SelectedItemColor.SelectedColorChanged += SelectedItemColor_SelectedColorChanged;
+
+			//Updates
 			this.updatesAktiv.IsChecked = UserSettings.Updates;
 			SetUpdateSection();
 			if (UserSettings.Updates)
@@ -89,6 +120,21 @@
 					this.updateIntervall.Text = UserSettings.UpdateAlleXTage.ToString();
 				}
 			}
+		}
+
+		private void ButtonHoverColor_SelectedColorChanged(Color obj)
+		{
+			this.ButtonHover = new SolidColorBrush(obj);
+		}
+
+		private void ButtonBackgroundColor_SelectedColorChanged(Color obj)
+		{
+			this.ButtonBackground = new SolidColorBrush(obj);
+		}
+
+		private void SelectedItemColor_SelectedColorChanged(Color obj)
+		{
+			this.SelectedBackground = new SolidColorBrush(obj);
 		}
 
 		private void UpdateLaden_Click(object sender, RoutedEventArgs e)

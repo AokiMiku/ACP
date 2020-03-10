@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:cp="clr-namespace:DropDownCustomColorPicker;assembly=CustomColorPicker"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
         Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0" Closing="Window_Closing" Initialized="Window_Initialized" Loaded="Window_Loaded">
@@ -58,6 +59,30 @@
 						<TextBlock Text="Farben" />
 					</DockPanel>
 				</TabItem.Header>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<!--<ColumnDefinition />-->
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<DockPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Farbe für Hover-Effekt in Tabelle und bei Buttons: " />
+						<cp:CustomColorPicker x:Name="ButtonHoverColor" Width="40" />
+					</DockPanel>
+					<DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Hintergrundfarbe für Buttons: " />
+						<cp:CustomColorPicker x:Name="ButtonBackgroundColor" Width="40" />
+					</DockPanel>
+					<DockPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Farbe für ausgewähltes Cosplan in Tabelle: " />
+						<cp:CustomColorPicker x:Name="SelectedItemColor" Width="40" />
+					</DockPanel>
+				</Grid>
 			</TabItem>
 			<TabItem>
 				<TabItem.Header>
