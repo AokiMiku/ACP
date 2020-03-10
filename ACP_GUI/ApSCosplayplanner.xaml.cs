@@ -57,6 +57,7 @@
 					c.Where = "ErstelltAm = '17.11.1858'";
 					c.ErstelltAm = DateTime.Today;
 					c.Save(ApS.Databases.SqlAction.Update);
+					UserSettings.Settings.SetSetting("ErstelltAm_Fix", true);
 				}
 			}
 
