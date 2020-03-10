@@ -101,16 +101,13 @@
 		public Cosplans GetCosplans(int? franchise_nr = null)
 		{
 			Cosplans cosplans = new Cosplans();
-			if (franchise_nr != null)
+			if (franchise_nr == null || franchise_nr == 0)
 			{
-				if (franchise_nr == 0)
-				{
-					cosplans.Where = "Nummer is not null";
-				}
-				else
-				{
-					cosplans.Where = "Franchise_Nr = " + franchise_nr;
-				}
+				cosplans.Where = "Nummer is not null";
+			}
+			else
+			{
+				cosplans.Where = "Franchise_Nr = " + franchise_nr;
 			}
 			cosplans.OrderBy = this.CosplansOrderBy.ToString().Replace("_", " ");
 			cosplans.Read();
