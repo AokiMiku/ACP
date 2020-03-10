@@ -69,35 +69,34 @@
 			</DockPanel>
 
 			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
-				<Label Content="Cosplans: "  />
+				<Label Content="Cosplans: " />
 				<DockPanel Name="addCosplan" MouseLeftButtonUp="AddCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 					<Image Source="Resources/Icons/add.ico" Width="20" />
 				</DockPanel>
-				<Label Width="3" />
-				<DockPanel Name="delCosplan" MouseLeftButtonUp="DelCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
+				<Label Width="23" />
+				<!--<DockPanel Name="delCosplan" MouseLeftButtonUp="DelCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 					<Image Source="Resources/Icons/del.ico" Width="20" />
-				</DockPanel>
+				</DockPanel>-->
 			</DockPanel>
 
-			<StackPanel Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" MouseLeftButtonUp="ColNummer_Click">
-				<Label Background="Black" Height="2" />
-				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12">
-					<TextBlock Text="Nummer" />
-					<Label Width="3" />
-					<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Visible" />
+			<Border BorderThickness="0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" >
+				<DockPanel Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonUp="ColNummer_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
+					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+						<TextBlock Text="Nummer" />
+						<Label Width="3" />
+						<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Visible" />
+					</DockPanel>
 				</DockPanel>
-				<Label Background="Black" Height="2" />
-			</StackPanel>
-
-			<StackPanel Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" MouseLeftButtonUp="ColName_Click">
-				<Label Background="Black" Height="2" />
-				<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,12">
-					<TextBlock Text="Bezeichnung" />
-					<Label Width="3" />
-					<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
+			</Border>
+			<Border BorderThickness="0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" >
+				<DockPanel Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" MouseLeftButtonUp="ColName_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Bezeichnung" />
+						<Label Width="3" />
+						<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
+					</DockPanel>
 				</DockPanel>
-				<Label Background="Black" Height="2" />
-			</StackPanel>
+			</Border>
 
 			<!--<StackPanel Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="1" MouseLeftButtonUp="ColErledigt_Click">
 				<Label Background="Black" Height="2" />

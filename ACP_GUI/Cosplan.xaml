@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
-        Title="Cosplan" MinHeight="450" MinWidth="350" Height="0" Width="0"
-		Initialized="Window_Initialized" Closing="Window_Closing">
+        Title="Cosplan" MinHeight="450" MinWidth="650" Height="0" Width="0" MaxWidth="650"
+		Initialized="Window_Initialized" Closing="Window_Closing" Loaded="Window_Loaded">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="5" />
@@ -32,7 +32,7 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
-			<Label Content="XXX" Name="cosplanName" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<TextBlock Text="XXX" Name="cosplanName" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 			<DockPanel Name="delete" Grid.Column="1" Grid.Row="1" MouseLeftButtonUp="Delete_Click" Margin="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 				<TextBlock Text="Cosplan entfernen" HorizontalAlignment="Center" VerticalAlignment="Center" />

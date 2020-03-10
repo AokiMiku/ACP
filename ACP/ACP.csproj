@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="DbObjects\Business.cs" />
     <Compile Include="DbObjects\Cosplans.cs" />

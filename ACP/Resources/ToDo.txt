@@ -7,7 +7,7 @@ TODO ACP (! - TODO; ? - Testing)
 ?	alle Cosplans anzeigen
 ?	update-funktion
 !	in franchise dropdown jeweils anzahl anzeigen	
-!!!	Bilder
+?	Bilder
 !	Tableheader-Buttons durch Labels mit Click-Event ersetzen, um Hover-Effekt leichter zu ändern ... Dockpanel Click-Event?
 !	Cosplans in Liste filtern
 

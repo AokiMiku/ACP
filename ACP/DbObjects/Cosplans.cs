@@ -32,16 +32,34 @@ namespace ACP
 			set { this.Put("Franchise_Nr", value); }
 		}
 
+		public int Bild_Nr
+		{
+			get { return this.GetInt("Bild_Nr"); }
+			set { this.Put("Bild_Nr", value); }
+		}
+
 		public string Name
 		{
 			get { return this.GetString("Name"); }
 			set { this.Put("Name", value); }
 		}
 
+		public DateTime ErstelltAm
+		{
+			get { return this.GetDateTime("ErstelltAm"); }
+			set { this.Put("ErstelltAm", value); }
+		}
+
 		public bool Erledigt
 		{
 			get { return this.GetBool("Erledigt"); }
 			set { this.Put("Erledigt", value); }
+		}
+
+		public DateTime ErledigtAm
+		{
+			get { return this.GetDateTime("ErledigtAm"); }
+			set { this.Put("ErledigtAm", value); }
 		}
 	}
 }

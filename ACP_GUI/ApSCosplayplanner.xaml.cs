@@ -16,12 +16,6 @@
 	public partial class ApSCosplayplanner : Window
 	{
 		#region Constants
-		private const string MessageBoxDeleteFranchise = "Soll das ausgewählte Franchise wirklich gelöscht werden? Alle zugehörigen Cospläne werden dabei unwiderruflich gelöscht.";
-		private const string MessageBoxDeleteCosplan = "Soll das ausgewählte Cosplan wirklich gelöscht werden?";
-		private const string CaptionDelete = "Löschen?";
-		private const string PictureIcon = @"\Resources\Icons\picture.ico";
-		private const string Arrow_UpIcon = @"\Resources\Icons\arrow_up.ico";
-		private const string Arrow_DownIcon = @"\Resources\Icons\arrow_down.ico";
 		private const string WindowName = "MainWindow";
 		#endregion
 
@@ -33,6 +27,15 @@
 			InitializeComponent();
 		}
 
+		private void Window_Initialized(object sender, EventArgs e)
+		{
+			if (UserSettings.FenstergroesseMerken)
+			{
+				this.Width = UserSettings.GetWidth(WindowName);
+				this.Height = UserSettings.GetHeight(WindowName);
+			}
+		}
+
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			this.version.Text = ApS.Version.StringAppVersion;
@@ -41,9 +44,22 @@
 			{
 				ACP_GUI.Updater.CheckForUpdate();
 			}
+
+			ACP.Updater updater = new ACP.Updater();
+			updater.UpdateDatabase();
+
 			this.core = new Core();
 			this.ActualizeFanchises();
 			this.SetSortingIcons();
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (UserSettings.FenstergroesseMerken)
+			{
+				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
+				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
+			}
 		}
 
 		private void AddFranchise_Click(object sender, RoutedEventArgs e)
@@ -76,7 +92,7 @@
 		private void DelFranchise_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.franchises.SelectedItem != null 
-				&& MessageBox.Show(MessageBoxDeleteFranchise, CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				&& MessageBox.Show(Constants.MessageBoxDeleteFranchise, Constants.CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 			{
 				this.core.DeleteFranchise(((Franchises4Dropdown)this.franchises.SelectedItem).Nummer);
 				this.ActualizeFanchises();
@@ -129,16 +145,6 @@
 			}
 		}
 
-		private void DelCosplan_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.selectedCosplan != null
-				&& MessageBox.Show(MessageBoxDeleteCosplan, CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-			{
-				this.core.DeleteCosplan((int)this.selectedCosplan);
-				this.ActualizeData();
-			}
-		}
-
 		private void Einstellungen_Click(object sender, RoutedEventArgs e)
 		{
 			Einstellungen einstellungen = new Einstellungen();
@@ -180,21 +186,6 @@
 			ActualizeData();
 		}
 
-		private void ColErledigt_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.core.CosplansOrderBy == Core.OrderBy.Erledigt_asc)
-			{
-				this.core.CosplansOrderBy = Core.OrderBy.Erledigt_desc;
-			}
-			else
-			{
-				this.core.CosplansOrderBy = Core.OrderBy.Erledigt_asc;
-			}
-
-			SetSortingIcons();
-			ActualizeData();
-		}
-
 		private void SetSortingIcons()
 		{
 			this.colNummerIcon.Visibility = Visibility.Hidden;
@@ -205,19 +196,19 @@
 			{
 				case Core.OrderBy.Nummer_asc:
 					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
+					this.colNummerIcon.Source = new BitmapImage(new Uri(Constants.Arrow_DownIcon, UriKind.Relative));
 					break;
 				case Core.OrderBy.Nummer_desc:
 					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
+					this.colNummerIcon.Source = new BitmapImage(new Uri(Constants.Arrow_UpIcon, UriKind.Relative));
 					break;
 				case Core.OrderBy.Name_asc:
 					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = new BitmapImage(new Uri(Arrow_DownIcon, UriKind.Relative));
+					this.colNameIcon.Source = new BitmapImage(new Uri(Constants.Arrow_DownIcon, UriKind.Relative));
 					break;
 				case Core.OrderBy.Name_desc:
 					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = new BitmapImage(new Uri(Arrow_UpIcon, UriKind.Relative));
+					this.colNameIcon.Source = new BitmapImage(new Uri(Constants.Arrow_UpIcon, UriKind.Relative));
 					break;
 				//case Core.OrderBy.Erledigt_asc:
 				//	this.colErledigtIcon.Visibility = Visibility.Visible;
@@ -303,7 +294,7 @@
 				{
 					Background = Brushes.Transparent
 				};
-				grid.MouseDown += Grid_MouseDown;
+				grid.MouseUp += Grid_MouseUp;
 				grid.MouseEnter += Grid_MouseEnter;
 				grid.MouseLeave += Grid_MouseLeave;
 
@@ -400,7 +391,7 @@
 			}
 		}
 
-		private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+		private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			Grid grid = (Grid)sender;
 
@@ -422,30 +413,19 @@
 				grid.Background = Layout.SelectedBackground;
 				this.selectedCosplan = ((Label)grid.Children[0]).Content.ToInt();
 
-				Cosplan.Show(this.selectedCosplan.ToInt());
+				if (!Cosplan.Show(this.core, this.selectedCosplan.ToInt()))
+				{
+					this.ActualizeData();
+				}
+				else
+				{
+					this.Grid_MouseUp(sender, e);
+				}
 			}
 			else
 			{
 				grid.Background = Layout.ButtonHover;
 				this.selectedCosplan = null;
-			}
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
-				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
-			}
-		}
-
-		private void Window_Initialized(object sender, EventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				this.Width = UserSettings.GetWidth(WindowName);
-				this.Height = UserSettings.GetHeight(WindowName);
 			}
 		}
 

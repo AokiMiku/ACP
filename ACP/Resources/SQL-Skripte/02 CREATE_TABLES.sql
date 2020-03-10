@@ -8,9 +8,11 @@ CREATE TABLE Cosplans
 (
     Nummer			integer NOT NULL PRIMARY KEY,
     Franchise_Nr	integer NOT NULL,
+	Bild_Nr			integer,
     Name			varchar(100) NOT NULL,
-    --Geburtsdatum	date NOT NULL,
-    Erledigt		BOOLEAN DEFAULT 0 NOT NULL
+    ErstelltAm		date DEFAULT CURRENT_DATE NOT NULL,
+    Erledigt		BOOLEAN DEFAULT 0 NOT NULL,
+    ErledigtAm		date
 );
 
 CREATE TABLE Bilder

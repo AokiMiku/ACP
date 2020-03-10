@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bild.xaml.cs">
+      <DependentUpon>Bild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ByteToImageConverter.cs" />
     <Compile Include="Cosplan.xaml.cs">
       <DependentUpon>Cosplan.xaml</DependentUpon>
     </Compile>
@@ -88,6 +92,10 @@
       <DependentUpon>ApSCosplayplanner.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Bild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Cosplan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

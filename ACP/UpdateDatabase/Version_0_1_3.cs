@@ -4,13 +4,17 @@
 
 	internal class Version_0_1_3 : UpdateDatabase
 	{
-		private readonly string CosplansAddErstelltAm = "";
-		private readonly string CosplansAddAnzeigebild = "";
+		private readonly string CosplansAddErstelltAm = "EXECUTE BLOCK	AS BEGIN IF(NOT EXISTS(SELECT 1 FROM RDB$RELATION_FIELDS R LEFT JOIN RDB$FIELDS F ON R.RDB$FIELD_SOURCE = F.RDB$FIELD_NAME WHERE R.RDB$RELATION_NAME = 'COSPLANS' AND R.RDB$FIELD_NAME = 'ERSTELLTAM')) THEN BEGIN EXECUTE STATEMENT 'ALTER TABLE COSPLANS ADD ERSTELLTAM DATE DEFAULT CURRENT_DATE NOT NULL;'; END END;";
+		private readonly string CosplansAddAnzeigebild = "EXECUTE BLOCK AS BEGIN IF(NOT EXISTS(SELECT 1 FROM RDB$RELATION_FIELDS R LEFT JOIN RDB$FIELDS F ON R.RDB$FIELD_SOURCE = F.RDB$FIELD_NAME WHERE R.RDB$RELATION_NAME = 'COSPLANS' AND R.RDB$FIELD_NAME = 'BILD_NR')) THEN BEGIN EXECUTE STATEMENT 'ALTER TABLE COSPLANS ADD BILD_NR INTEGER;'; END END;";
+		private readonly string CosplansAddForeignKeyBilder = "EXECUTE BLOCK AS BEGIN EXECUTE STATEMENT 'ALTER TABLE Cosplans ADD FOREIGN KEY (Bild_Nr) REFERENCES Bilder (Nummer) ON DELETE CASCADE ON UPDATE CASCADE;;'; END;";
+		private readonly string CosplansAddErledigtAm = "EXECUTE BLOCK AS BEGIN IF(NOT EXISTS(SELECT 1 FROM RDB$RELATION_FIELDS R LEFT JOIN RDB$FIELDS F ON R.RDB$FIELD_SOURCE = F.RDB$FIELD_NAME WHERE R.RDB$RELATION_NAME = 'COSPLANS' AND R.RDB$FIELD_NAME = 'ERLEDIGTAM' )) THEN BEGIN EXECUTE STATEMENT 'ALTER TABLE COSPLANS ADD ERLEDIGTAM DATE;'; END END;";
 
 		public Version_0_1_3() : base()
 		{
 			base.AddStatements(this.CosplansAddErstelltAm);
 			base.AddStatements(this.CosplansAddAnzeigebild);
+			base.AddStatements(this.CosplansAddForeignKeyBilder);
+			base.AddStatements(this.CosplansAddErledigtAm);
 		}
 	}
 }

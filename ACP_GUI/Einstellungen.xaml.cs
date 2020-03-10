@@ -13,8 +13,6 @@
     {
 		#region Constants
 		private const string WindowName = "Einstellungen";
-		private const string MessageBoxResetCosplanNummer = "Nummern wurden zurückgesetzt.";
-		private const string CaptionCosplanNummer = "Fertig";
 		#endregion
 
 		public bool ResetNummern = false;
@@ -53,7 +51,7 @@
 		{
 			this.ResetNummern = true;
 			Core.ResetCosplanNummern();
-			MessageBox.Show(MessageBoxResetCosplanNummer, CaptionCosplanNummer, MessageBoxButton.OK);
+			MessageBox.Show(Constants.MessageBoxResetCosplanNummer, Constants.CaptionCosplanNummer, MessageBoxButton.OK);
 			this.Close();
 		}
 
