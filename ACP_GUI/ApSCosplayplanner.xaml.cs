@@ -49,6 +49,17 @@
 			updater.UpdateDatabase();
 
 			this.core = new Core();
+
+			if (!UserSettings.Settings.GetSetting("ErstelltAm_Fix").ToBoolean())
+			{
+				using (Cosplans c = this.core.GetCosplans())
+				{
+					c.Where = "ErstelltAm = '17.11.1858'";
+					c.ErstelltAm = DateTime.Today;
+					c.Save(ApS.Databases.SqlAction.Update);
+				}
+			}
+
 			this.ActualizeFanchises();
 			if (UserSettings.BeiProgrammstartLetztesFranchiseOeffnen && UserSettings.ZuletztGeoffnetesFranchise != 0)
 			{
