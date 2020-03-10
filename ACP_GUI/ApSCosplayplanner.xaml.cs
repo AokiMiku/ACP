@@ -50,6 +50,11 @@
 
 			this.core = new Core();
 			this.ActualizeFanchises();
+			if (UserSettings.BeiProgrammstartLetztesFranchiseOeffnen && UserSettings.ZuletztGeoffnetesFranchise != 0)
+			{
+				this.SelectFranchise(UserSettings.ZuletztGeoffnetesFranchise);
+				this.ActualizeData();
+			}
 			this.SetSortingIcons();
 		}
 
@@ -133,9 +138,13 @@
 		{
 			if (e.Key == Key.Enter)
 			{
-				this.core.SaveCosplan(((TextBox)sender).Text, ((Franchises4Dropdown)this.franchises.SelectedItem).Nummer);
+				int franchise = ((Franchises4Dropdown)this.franchises.SelectedItem).Nummer;
+				this.core.SaveCosplan(((TextBox)sender).Text, franchise);
 
 				this.data.Children.RemoveAt(0);
+
+				this.ActualizeFanchises();
+				this.SelectFranchise(franchise);
 
 				this.ActualizeData();
 			}
@@ -236,6 +245,19 @@
 			this.ActualizeData();
 		}
 
+		private void SelectFranchise(int nummer)
+		{
+			foreach (var franchise in this.franchises.Items)
+			{
+				Franchises4Dropdown f = (Franchises4Dropdown)franchise;
+				if (f.Nummer == nummer)
+				{
+					this.franchises.SelectedItem = franchise;
+					break;
+				}
+			}
+		}
+
 		private void ActualizeFanchises()
 		{
 			this.franchises.Items.Clear();
@@ -244,21 +266,16 @@
 
 			while (!this.core.Franchises.EoF)
 			{
-				this.franchises.Items.Add(new Franchises4Dropdown(this.core.Franchises.Nummer, this.core.Franchises.Name));
-				this.core.Franchises.Skip();
-			}
-
-			if (UserSettings.BeiProgrammstartLetztesFranchiseOeffnen && UserSettings.ZuletztGeoffnetesFranchise != 0)
-			{
-				foreach (var franchise in this.franchises.Items)
+				int count = 0;
+				using (Cosplans cosplans = new Cosplans())
 				{
-					Franchises4Dropdown f = (Franchises4Dropdown)franchise;
-					if (f.Nummer == UserSettings.ZuletztGeoffnetesFranchise)
-					{
-						this.franchises.SelectedItem = franchise;
-						break;
-					}
+					cosplans.Where = "Franchise_Nr = " + this.core.Franchises.Nummer;
+					cosplans.Read();
+
+					count = cosplans.RecordCount;
 				}
+				this.franchises.Items.Add(new Franchises4Dropdown(this.core.Franchises.Nummer, this.core.Franchises.Name, count));
+				this.core.Franchises.Skip();
 			}
 		}
 
@@ -286,6 +303,7 @@
 			else
 			{
 				cosplans = this.core.GetCosplans(((Franchises4Dropdown)this.franchises.SelectedItem).Nummer);
+				((Franchises4Dropdown)this.franchises.SelectedItem).Anzahl = cosplans.RecordCount;
 			}
 			
 			while (!cosplans.EoF)
@@ -364,13 +382,6 @@
 			//Grid.SetColumn(buttonBilder, 8);
 			//grid.Children.Add(buttonBilder);
 			grid.Height = 50;
-		}
-
-		private void CheckBoxErledigt_Click(object sender, RoutedEventArgs e)
-		{
-			CheckBox checkBox = (CheckBox)sender;
-			Grid grid = (Grid)checkBox.Parent;
-			this.core.SaveCosplan(nummer: ((Label)grid.Children[0]).Content.ToInt(), erledigt: checkBox.IsChecked.ToBoolean());
 		}
 
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)

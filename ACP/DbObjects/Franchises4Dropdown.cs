@@ -10,14 +10,17 @@ namespace ACP
 	{
 		public int Nummer { get; set; }
 		public string Name { get; set; }
-		public Franchises4Dropdown(int nummer, string name)
+		public int Anzahl { get; set; }
+
+		public Franchises4Dropdown(int nummer, string name, int anzahl)
 		{
 			this.Nummer = nummer;
 			this.Name = name;
+			this.Anzahl = anzahl;
 		}
 		public override string ToString()
 		{
-			return this.Name;
+			return this.Name + " (" + this.Anzahl + ")";
 		}
 	}
 }
