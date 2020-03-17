@@ -38,9 +38,6 @@
     <ApplicationIcon>Resources\Icons\ACP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomColorPicker">
-      <HintPath>..\..\ColorPicker\DropDownCustomColorPicker\bin\Release\CustomColorPicker.dll</HintPath>
-    </Reference>
     <Reference Include="FirebirdSql.Data.FirebirdClient">
       <HintPath>..\..\ApS\ApS.Databases\ApS.Databases.Firebird\firebird\FirebirdSql.Data.FirebirdClient.dll</HintPath>
       <Private>False</Private>
@@ -150,6 +147,10 @@
     <ProjectReference Include="..\..\ApS\ApS\ApS.csproj">
       <Project>{8ea157c8-a629-4d86-a745-49f0d82520ef}</Project>
       <Name>ApS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ColorPicker\DropDownCustomColorPicker\DropDownCustomColorPicker.csproj">
+      <Project>{fd2ec7d4-4316-4f8f-8108-8381f0b4b340}</Project>
+      <Name>DropDownCustomColorPicker</Name>
     </ProjectReference>
     <ProjectReference Include="..\ACP\ACP.csproj">
       <Project>{59358539-453f-4fd5-8d02-37d6fd048f13}</Project>
