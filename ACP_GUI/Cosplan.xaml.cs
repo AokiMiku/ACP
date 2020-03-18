@@ -35,6 +35,17 @@
 		{
 			InitializeComponent();
 			this.WindowName = "Cosplan";
+
+			Layout.Buttons.Add(this.addBild);
+			Layout.Buttons.Add(this.delBild);
+			Layout.Buttons.Add(this.delete);
+		}
+
+		~Cosplan()
+		{
+			Layout.Buttons.Remove(this.addBild);
+			Layout.Buttons.Remove(this.delBild);
+			Layout.Buttons.Remove(this.delete);
 		}
 
 		/// <summary>
@@ -57,17 +68,9 @@
 			return !c.geloescht;
 		}
 
-		private void Window_Initialized(object sender, EventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				this.Width = UserSettings.GetWidth(WindowName);
-				this.Height = UserSettings.GetHeight(WindowName);
-			}
-		}
-
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+
 			this.cosplanName.Text = this.cosplan.Name;
 
 			if (this.cosplan.ErstelltAm != Settings.NullDate)
@@ -86,15 +89,6 @@
 			this.SetErledigt(this.cosplan.Erledigt);
 
 			this.LoadBilder();
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
-				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
-			}
 		}
 
 		private void Erledigt_Click(object sender, RoutedEventArgs e)

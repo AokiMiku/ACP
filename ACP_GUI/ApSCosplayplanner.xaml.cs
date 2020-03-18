@@ -23,6 +23,23 @@
 		{
 			InitializeComponent();
 			this.WindowName = "MainWindow";
+
+			Layout.Buttons.Add(this.addFranchise);
+			Layout.Buttons.Add(this.delFranchise);
+			Layout.Buttons.Add(this.addCosplan);
+			Layout.Buttons.Add(this.Einstellungen);
+			Layout.Buttons.Add(this.colNummer);
+			Layout.Buttons.Add(this.colName);
+		}
+
+		~ApSCosplayplanner()
+		{
+			Layout.Buttons.Remove(this.addFranchise);
+			Layout.Buttons.Remove(this.delFranchise);
+			Layout.Buttons.Remove(this.addCosplan);
+			Layout.Buttons.Remove(this.Einstellungen);
+			Layout.Buttons.Remove(this.colNummer);
+			Layout.Buttons.Remove(this.colName);
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -324,20 +341,22 @@
 		{
 			grid.Children.Clear();
 
-			Label labelNummer = new Label
+			TextBlock labelNummer = new TextBlock
 			{
-				Content = cosplans.Nummer,
+				Text = cosplans.Nummer.ToString(),
 				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
 			};
 			Grid.SetColumn(labelNummer, 0);
 			grid.Children.Add(labelNummer);
 
-			Label labelName = new Label
+			TextBlock labelName = new TextBlock
 			{
-				Content = cosplans.Name,
+				Text = cosplans.Name,
 				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
 			};
 			Grid.SetColumn(labelName, 1);
 			Grid.SetColumnSpan(labelName, 8);

@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
         Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0"
-		Initialized="Window_Initialized" Loaded="Window_Loaded">
+		Initialized="Window_Initialized" Loaded="Window_Loaded" Closed="Base4Windows_Closed">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="5" />
@@ -22,7 +22,7 @@
 			<RowDefinition Height="5" />
 		</Grid.RowDefinitions>
 		
-		<TabControl Grid.Row="1" Grid.Column="1">
+		<TabControl Name="Tabs" Grid.Row="1" Grid.Column="1">
 			<TabItem >
 				<TabItem.Header>
 					<DockPanel>
@@ -70,6 +70,9 @@
 						<RowDefinition />
 						<RowDefinition />
 						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 
 					<DockPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -81,8 +84,20 @@
 						<cp:CustomColorPicker x:Name="ButtonBackgroundColor" Width="40" />
 					</DockPanel>
 					<DockPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Schriftfarbe für Buttons: " />
+						<cp:CustomColorPicker x:Name="ButtonForegroundColor" Width="40" />
+					</DockPanel>
+					<DockPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" >
 						<TextBlock Text="Farbe für ausgewähltes Cosplan in Tabelle: " />
 						<cp:CustomColorPicker x:Name="SelectedItemColor" Width="40" />
+					</DockPanel>
+					<DockPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Hintergrundfarbe für Fenster: " />
+						<cp:CustomColorPicker x:Name="WindowBackgroundColor" Width="40" />
+					</DockPanel>
+					<DockPanel Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+						<TextBlock Text="Schriftfarbe für Fenster: " />
+						<cp:CustomColorPicker x:Name="WindowForegroundColor" Width="40" />
 					</DockPanel>
 				</Grid>
 			</TabItem>
@@ -109,9 +124,9 @@
 						</DockPanel>
 					</Button>
 					<DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-						<Label Content="Automatisch alle " />
+						<TextBlock Text="Automatisch alle " />
 						<TextBox Name="updateIntervall" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="30" />
-						<Label Content=" Tage nach neuem Update suchen." />
+						<TextBlock Text=" Tage nach neuem Update suchen." />
 					</DockPanel>
 				</Grid>
 			</TabItem>

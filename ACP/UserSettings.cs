@@ -81,6 +81,24 @@
 			get { return "Transparent"; }
 		}
 
+		public static string ButtonForeground
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("ButtonForeground")))
+				{
+					return ButtonForegroundDefault;
+				}
+				return Settings.GetSetting("ButtonForeground");
+			}
+			set { Settings.SetSetting("ButtonForeground", value); }
+		}
+
+		public static string ButtonForegroundDefault
+		{
+			get { return "Black"; }
+		}
+
 		public static string SelectedBackground
 		{
 			get
@@ -97,6 +115,42 @@
 		public static string SelectedBackgroundDefault
 		{
 			get { return "MediumPurple"; }
+		}
+
+		public static string WindowBackground
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("WindowBackground")))
+				{
+					return WindowBackgroundDefault;
+				}
+				return Settings.GetSetting("WindowBackground");
+			}
+			set { Settings.SetSetting("WindowBackground", value); }
+		}
+
+		public static string WindowBackgroundDefault
+		{
+			get { return "White"; }
+		}
+
+		public static string WindowForeground
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.GetSetting("WindowForeground")))
+				{
+					return WindowForegroundDefault;
+				}
+				return Settings.GetSetting("WindowForeground");
+			}
+			set { Settings.SetSetting("WindowForeground", value); }
+		}
+
+		public static string WindowForegroundDefault
+		{
+			get { return "Black"; }
 		}
 		#endregion
 

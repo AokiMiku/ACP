@@ -62,7 +62,7 @@ namespace DropDownCustomColorPicker
             if (!b.ContextMenu.IsOpen)
             {
 				SelectedColor = cp.CustomColor;
-				ChangeSelectedColor();
+				ShowSelectedColor();
             }
             _isContexMenuOpened = false;
         }
@@ -83,10 +83,10 @@ namespace DropDownCustomColorPicker
 
 		private void Cp_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.ChangeSelectedColor();
+			this.ShowSelectedColor();
 		}
 
-		private void ChangeSelectedColor()
+		private void ShowSelectedColor()
 		{
 			recContent.Fill = new SolidColorBrush(SelectedColor);
 			HexValue = string.Format("#{0}", SelectedColor.ToString().Substring(1));
