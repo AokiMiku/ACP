@@ -1,6 +1,7 @@
 ﻿namespace ACP_GUI
 {
 	using System;
+	using System.IO;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
@@ -17,17 +18,13 @@
 
 	using ACP;
 	using ApS;
-	using System.IO;
+	using GUI_Bases;
 
 	/// <summary>
 	/// Interaktionslogik für Cosplan.xaml
 	/// </summary>
-	public partial class Cosplan : Window
+	public partial class Cosplan : Base4Windows
 	{
-		#region Constants
-		private const string WindowName = "Cosplan";
-		#endregion
-
 		private Cosplans cosplan = null;
 		private Core core = null;
 		private bool geloescht = false;
@@ -37,6 +34,7 @@
 		public Cosplan()
 		{
 			InitializeComponent();
+			this.WindowName = "Cosplan";
 		}
 
 		/// <summary>

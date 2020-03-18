@@ -6,16 +6,13 @@
 
 	using ACP;
 	using ApS;
+	using GUI_Bases;
 
     /// <summary>
     /// Interaktionslogik für Einstellungen.xaml
     /// </summary>
-    public partial class Einstellungen : Window
+    public partial class Einstellungen : Base4Windows
     {
-		#region Constants
-		private const string WindowName = "Einstellungen";
-		#endregion
-
 		public bool ResetNummern = false;
 
 		private SolidColorBrush ButtonHover;
@@ -25,6 +22,7 @@
         public Einstellungen()
         {
             InitializeComponent();
+			this.WindowName = "Einstellungen";
         }
 
 		private void SaveCancel_Speichern(object sender, RoutedEventArgs e)
@@ -75,22 +73,8 @@
 			this.Close();
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
-				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
-			}
-		}
-
 		private void Window_Initialized(object sender, EventArgs e)
 		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				this.Width = UserSettings.GetWidth(WindowName);
-				this.Height = UserSettings.GetHeight(WindowName);
-			}
 			this.saveCancel.Speichern += SaveCancel_Speichern;
 			this.saveCancel.Abbrechen += SaveCancel_Abbrechen;
 		}

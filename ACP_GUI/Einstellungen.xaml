@@ -1,12 +1,14 @@
-﻿<Window x:Class="ACP_GUI.Einstellungen"
+﻿<base:Base4Windows x:Class="ACP_GUI.Einstellungen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:cp="clr-namespace:DropDownCustomColorPicker;assembly=CustomColorPicker"
+		xmlns:base="clr-namespace:GUI_Bases;assembly=GUI_Bases"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
-        Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0" Closing="Window_Closing" Initialized="Window_Initialized" Loaded="Window_Loaded">
+        Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0"
+		Initialized="Window_Initialized" Loaded="Window_Loaded">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="5" />
@@ -120,4 +122,4 @@
 			<local:SaveCancel x:Name="saveCancel"></local:SaveCancel>
 		</StackPanel>
 	</Grid>
-</Window>
+</base:Base4Windows>

@@ -9,31 +9,20 @@
 
 	using ACP;
 	using ApS;
+	using GUI_Bases;
 
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
-	public partial class ApSCosplayplanner : Window
+	public partial class ApSCosplayplanner : Base4Windows
 	{
-		#region Constants
-		private const string WindowName = "MainWindow";
-		#endregion
-
 		private Core core;
 		private int? selectedCosplan;
 
 		public ApSCosplayplanner()
 		{
 			InitializeComponent();
-		}
-
-		private void Window_Initialized(object sender, EventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				this.Width = UserSettings.GetWidth(WindowName);
-				this.Height = UserSettings.GetHeight(WindowName);
-			}
+			this.WindowName = "MainWindow";
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -68,15 +57,6 @@
 				this.ActualizeData();
 			}
 			this.SetSortingIcons();
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			if (UserSettings.FenstergroesseMerken)
-			{
-				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
-				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
-			}
 		}
 
 		private void AddFranchise_Click(object sender, RoutedEventArgs e)
