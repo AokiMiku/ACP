@@ -1,7 +1,6 @@
 ﻿namespace GUI_Bases
 {
 	using System;
-	using System.Reflection;
 	using System.Windows;
 	using System.Windows.Controls;
 	using ACP;

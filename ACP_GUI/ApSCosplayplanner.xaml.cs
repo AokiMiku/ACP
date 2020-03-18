@@ -433,7 +433,7 @@
 			if (grid.Background == Layout.ButtonHover)
 			{
 				grid.Background = Layout.SelectedBackground;
-				this.selectedCosplan = ((Label)grid.Children[0]).Content.ToInt();
+				this.selectedCosplan = ((TextBlock)grid.Children[0]).Text.ToInt();
 
 				if (!Cosplan.Show(this.core, this.selectedCosplan.ToInt()))
 				{
