@@ -10,7 +10,7 @@
 		public App()
 		{
 			ApS.Version.MajorVersion = 0;
-			ApS.Version.MinorVersion = 2;
+			ApS.Version.MinorVersion = 3;
 			ApS.Version.PatchNumber = 0;
 		}
 	}

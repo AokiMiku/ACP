@@ -198,5 +198,8 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\ACP.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\todo.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

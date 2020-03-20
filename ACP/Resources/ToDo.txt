@@ -9,7 +9,7 @@ TODO ACP (! - TODO; ? - Testing)
 ?	Tableheader-Buttons durch Labels mit Click-Event ersetzen, um Hover-Effekt leichter zu ändern ... Dockpanel Click-Event?
 !	Cosplans in Liste filtern (Alle, unerledigte, erledigte...)
 !	Optionen fuer Nummerreset (Alphabetisch, nach Nummer, Erledigt...)
-
+!!	ToDos fuer Cosplans
 
 Bilder:
 zu welchem cosplay?
