@@ -70,6 +70,10 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			this.addBild.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
+			this.delBild.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.DelIcon;
+			this.TodoTab.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.ToDoIcon;
+			this.BilderTab.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.PictureIcon;
 
 			this.cosplanName.Text = this.cosplan.Name;
 

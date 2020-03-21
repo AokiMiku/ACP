@@ -5,21 +5,17 @@
 	using System.Windows.Controls;
 	using ACP;
 	using ApS;
+	using ApS.WPF;
 
-	public class Base4Windows : Window
+	public class Base4Windows : WPFBase
 	{
-		protected string WindowName = "";
 
 		public Base4Windows()
 		{
-			this.Initialized += Window_Initialized;
-			this.Closing += Window_Closing;
-			this.Closed += Base4Windows_Closed;
-			this.Loaded += Base4Windows_Loaded;
 			Layout.WindowBackgrounds.Add(this);
 		}
 
-		private void Window_Initialized(object sender, EventArgs e)
+		protected override void SetFenstergroessen()
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{
@@ -28,7 +24,7 @@
 			}
 		}
 
-		private void Base4Windows_Loaded(object sender, RoutedEventArgs e)
+		protected override void SetColors()
 		{
 			Layout.SetButtonBackgroundColors();
 			Layout.SetButtonForegroundColors();
@@ -36,7 +32,7 @@
 			Layout.SetWindowForegroundColors();
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		protected override void SaveFenstergroessen()
 		{
 			if (UserSettings.FenstergroesseMerken)
 			{

@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:base="clr-namespace:GUI_Bases;assembly=GUI_Bases"
-        xmlns:local="clr-namespace:ACP_GUI"
+		xmlns:icons="clr-namespace:ApS.WPF;assembly=ApS.WPF"
+		xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
         Title="Cosplan" MinHeight="450" MinWidth="650" Height="0" Width="0" MaxWidth="650"
 		Loaded="Window_Loaded">
@@ -72,26 +73,26 @@
 					</Style>
 				</TabControl.Resources>
 
-				<TabItem>
+				<TabItem Name="TodoTab">
 					<TabItem.Header>
-						<Image Source="/Resources/Icons/todo.ico" Width="20" />
+						<Image Width="20" />
 					</TabItem.Header>
 				</TabItem>
 				
-				<TabItem>
+				<TabItem Name="BilderTab">
 					<TabItem.Header>
-						<Image Source="/Resources/Icons/picture.ico" Width="20" />
+						<Image Width="20" />
 					</TabItem.Header>
 
 					<ScrollViewer VerticalScrollBarVisibility="Hidden" >
 						<StackPanel>
 							<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 3">
 								<DockPanel Name="addBild" MouseLeftButtonUp="AddBild_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-									<Image Source="/Resources/Icons/add.ico" Width="20" />
+									<Image Width="20" />
 								</DockPanel>
 								<Label Width="3" />
 								<DockPanel Name="delBild" MouseLeftButtonUp="DelBild_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-									<Image Source="/Resources/Icons/del.ico" Width="20" />
+									<Image Width="20" />
 								</DockPanel>
 							</DockPanel>
 							<StackPanel Name="bilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >

@@ -1,6 +1,7 @@
 ﻿namespace ACP_GUI
 {
 	using System;
+	using System.Linq;
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Input;
@@ -44,6 +45,11 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			this.addFranchise.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
+			this.delFranchise.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.DelIcon;
+			this.addCosplan.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
+			this.Einstellungen.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.WheelIcon;
+
 			this.version.Text = ApS.Version.StringAppVersion;
 
 			if (UserSettings.Updates && UserSettings.LetztesUpdateAm.AddDays(UserSettings.UpdateAlleXTage) <= DateTime.Now.Date)
@@ -214,19 +220,19 @@
 			{
 				case Core.OrderBy.Nummer_asc:
 					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = new BitmapImage(new Uri(Constants.Arrow_DownIcon, UriKind.Relative));
+					this.colNummerIcon.Source = ApS.WPF.ResourceConstants.Arrow_DownIcon;
 					break;
 				case Core.OrderBy.Nummer_desc:
 					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = new BitmapImage(new Uri(Constants.Arrow_UpIcon, UriKind.Relative));
+					this.colNummerIcon.Source = ApS.WPF.ResourceConstants.Arrow_UpIcon;
 					break;
 				case Core.OrderBy.Name_asc:
 					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = new BitmapImage(new Uri(Constants.Arrow_DownIcon, UriKind.Relative));
+					this.colNameIcon.Source = ApS.WPF.ResourceConstants.Arrow_DownIcon;
 					break;
 				case Core.OrderBy.Name_desc:
 					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = new BitmapImage(new Uri(Constants.Arrow_UpIcon, UriKind.Relative));
+					this.colNameIcon.Source = ApS.WPF.ResourceConstants.Arrow_UpIcon;
 					break;
 				//case Core.OrderBy.Erledigt_asc:
 				//	this.colErledigtIcon.Visibility = Visibility.Visible;

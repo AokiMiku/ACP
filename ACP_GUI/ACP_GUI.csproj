@@ -161,6 +161,10 @@
       <Project>{e7740997-1ceb-47b7-892f-5db0e6dde3b9}</Project>
       <Name>ApS.Databases.Firebird</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ApS\ApS.WPF\ApS.WPF.csproj">
+      <Project>{945245a5-4a7c-4978-a056-c9b69edb1ddc}</Project>
+      <Name>ApS.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ApS\ApS\ApS.csproj">
       <Project>{8ea157c8-a629-4d86-a745-49f0d82520ef}</Project>
       <Name>ApS</Name>
@@ -179,27 +183,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\add.ico" />
-    <Resource Include="Resources\Icons\ApS.ico" />
-    <Resource Include="Resources\Icons\cancel.ico" />
-    <Resource Include="Resources\Icons\check.ico" />
-    <Resource Include="Resources\Icons\del.ico" />
-    <Resource Include="Resources\Icons\edit.ico" />
-    <Resource Include="Resources\Icons\save.ico" />
-    <Resource Include="Resources\Icons\wheel.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\arrow_down.ico" />
-    <Resource Include="Resources\Icons\arrow_up.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\picture.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Icons\ACP.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\todo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

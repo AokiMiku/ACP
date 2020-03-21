@@ -51,18 +51,18 @@
 				<DockPanel >
 					<Label Width="3"/>
 					<DockPanel Name="addFranchise" MouseLeftButtonUp="AddFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-						<Image Source="Resources/Icons/add.ico" Width="20" />
+						<Image Width="20" />
 					</DockPanel>
 					<Label Width="3"/>
 					<DockPanel Name="delFranchise" MouseLeftButtonUp="DelFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-						<Image Source="Resources/Icons/del.ico" Width="20" />
+						<Image Width="20" />
 					</DockPanel>
 				</DockPanel>
 			</DockPanel>
 
 			<DockPanel Name="Einstellungen" MouseLeftButtonUp="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
 				<DockPanel HorizontalAlignment="Center" >
-					<Image Source="Resources/Icons/wheel.ico" Width="20"/>
+					<Image Width="20"/>
 					<Label Width="3"/>
 					<TextBlock Text="Einstellungen" />
 				</DockPanel>
@@ -71,7 +71,7 @@
 			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
 				<Label Content="Cosplans: " />
 				<DockPanel Name="addCosplan" MouseLeftButtonUp="AddCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-					<Image Source="Resources/Icons/add.ico" Width="20" />
+					<Image Width="20" />
 				</DockPanel>
 				<Label Width="23" />
 				<!--<DockPanel Name="delCosplan" MouseLeftButtonUp="DelCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
@@ -84,7 +84,7 @@
 					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 						<TextBlock Text="Nummer" />
 						<Label Width="3" />
-						<Image Name="colNummerIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Visible" />
+						<Image Name="colNummerIcon" Width="20" Visibility="Visible" />
 					</DockPanel>
 				</DockPanel>
 			</Border>
@@ -93,7 +93,7 @@
 					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
 						<TextBlock Text="Bezeichnung" />
 						<Label Width="3" />
-						<Image Name="colNameIcon" Source="Resources/Icons/arrow_down.ico" Width="20" Visibility="Hidden"/>
+						<Image Name="colNameIcon" Width="20" Visibility="Hidden"/>
 					</DockPanel>
 				</DockPanel>
 			</Border>
