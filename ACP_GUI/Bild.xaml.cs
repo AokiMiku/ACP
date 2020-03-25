@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace ACP_GUI
+﻿namespace ACP_GUI
 {
-    /// <summary>
-    /// Interaktionslogik für Bild.xaml
-    /// </summary>
-    public partial class Bild : Window
+	using System;
+	using System.Windows;
+	using System.Windows.Input;
+	using System.Windows.Media;
+
+	using GUI_Bases;
+
+	/// <summary>
+	/// Interaktionslogik für Bild.xaml
+	/// </summary>
+	public partial class Bild : Base4Windows
 	{
 		public ImageSource ImageSource;
 
@@ -26,6 +19,7 @@ namespace ACP_GUI
             InitializeComponent();
 
 			this.ShowInTaskbar = false;
+			this.Fenstergroessen = false;
         }
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -2,13 +2,12 @@
 {
 	using System;
 	using System.Linq;
-	using System.Collections;
 	using System.Collections.Generic;
 	using System.Windows.Controls;
 	using System.Windows.Media;
 
 	using ACP;
-	using System.Windows;
+	using ApS.WPF;
 
 	public static class Layout
 	{

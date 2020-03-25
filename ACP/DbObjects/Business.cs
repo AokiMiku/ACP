@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ACP
+﻿namespace ACP
 {
 	using System;
-	using System.Collections;
-	using System.Collections.Generic;
 	using System.Data;
+	using System.Collections.Generic;
+
 	using ApS;
 	using ApS.Databases;
-	using ApS.Databases.Firebird;
-	using FirebirdSql.Data.FirebirdClient;
 
 	/// <summary>
 	/// Basisklasse für Business-Objekte

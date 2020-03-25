@@ -168,6 +168,47 @@
 		}
 		#endregion
 
+		#region ToDos
+		public void SaveToDo(string bezeichnung, int cosplan_nr, int prozentErledigt = 0)
+		{
+			using (ToDos toDos = new ToDos
+			{
+				Bezeichnung = bezeichnung,
+				Cosplan_Nr = cosplan_nr,
+				ProzentErledigt = prozentErledigt
+			})
+			{
+				toDos.Save(ApS.Databases.SqlAction.Insert);
+			}
+		}
+
+		public ToDos GetToDos(int cosplan_nr)
+		{
+			ToDos toDos = new ToDos
+			{
+				Where = "Cosplan_Nr = " + cosplan_nr,
+				OrderBy = "Kategorie_Nr asc"
+			};
+			toDos.Read();
+
+			return toDos;
+		}
+
+		public void DeleteTodo(int nummer)
+		{
+			using (ToDos toDos = new ToDos())
+			{
+				toDos.Where = "Nummer = " + nummer;
+				toDos.Read();
+
+				if (!toDos.EoF)
+				{
+					toDos.Delete();
+				}
+			}
+		}
+		#endregion
+
 		public static void ResetCosplanNummern()
 		{
 			using (Cosplans cosplans = new Cosplans())
@@ -202,7 +243,7 @@
 					cosplans.Nummer = newNummer++;
 
 					cosplans.Save(ApS.Databases.SqlAction.Update);
-					
+
 					cosplans.Skip();
 				}
 

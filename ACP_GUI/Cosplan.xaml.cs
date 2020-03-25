@@ -2,23 +2,17 @@
 {
 	using System;
 	using System.IO;
-	using System.Collections.Generic;
 	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
 	using System.Windows;
 	using System.Windows.Controls;
-	using System.Windows.Data;
-	using System.Windows.Documents;
 	using System.Windows.Input;
 	using System.Windows.Media;
-	using System.Windows.Media.Imaging;
-	using System.Windows.Shapes;
 	using Microsoft.Win32;
 
 	using ACP;
-	using ApS;
 	using GUI_Bases;
+	using ApS;
+	using ApS.WPF;
 
 	/// <summary>
 	/// Interaktionslogik für Cosplan.xaml
@@ -30,6 +24,7 @@
 		private bool geloescht = false;
 		private int bilderRow = 0;
 		private int bilderCountInLastRow = 0;
+		private int? selectedToDo;
 
 		public Cosplan()
 		{
@@ -38,6 +33,8 @@
 
 			Layout.Buttons.Add(this.addBild);
 			Layout.Buttons.Add(this.delBild);
+			Layout.Buttons.Add(this.addTodo);
+			Layout.Buttons.Add(this.delTodo);
 			Layout.Buttons.Add(this.delete);
 		}
 
@@ -45,6 +42,8 @@
 		{
 			Layout.Buttons.Remove(this.addBild);
 			Layout.Buttons.Remove(this.delBild);
+			Layout.Buttons.Remove(this.addTodo);
+			Layout.Buttons.Remove(this.delTodo);
 			Layout.Buttons.Remove(this.delete);
 		}
 
@@ -53,7 +52,7 @@
 		/// </summary>
 		/// <param name="cosplan"></param>
 		/// <returns>False if Cosplan got deleted. Else True.</returns>
-		public static bool Show(Core core, int cosplan)
+		public static bool Show(WPFBase parent, Core core, int cosplan)
 		{
 			Cosplan c = new Cosplan
 			{
@@ -63,17 +62,21 @@
 					Where = "Nummer = " + cosplan
 				}
 			};
+
+			c.SetPositionToParent(parent);
 			c.cosplan.Read();
 			c.ShowDialog();
+
 			return !c.geloescht;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.addBild.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
-			this.delBild.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.DelIcon;
-			this.TodoTab.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.ToDoIcon;
-			this.BilderTab.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.PictureIcon;
+			this.addBild.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
+			this.delBild.FindVisualChildren<Image>().First().Source = ResourceConstants.DelIcon;
+			this.addTodo.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
+			this.TodoTab.FindVisualChildren<Image>().First().Source = ResourceConstants.ToDoIcon;
+			this.BilderTab.FindVisualChildren<Image>().First().Source = ResourceConstants.PictureIcon;
 
 			this.cosplanName.Text = this.cosplan.Name;
 
@@ -93,6 +96,7 @@
 			this.SetErledigt(this.cosplan.Erledigt);
 
 			this.LoadBilder();
+			this.LoadToDos();
 		}
 
 		private void Erledigt_Click(object sender, RoutedEventArgs e)
@@ -141,6 +145,7 @@
 			}
 		}
 
+		#region Bilder
 		private void AddBild_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog selectBild = new OpenFileDialog
@@ -194,11 +199,8 @@
 			rowBorder.Child = bildRow;
 			this.bilder.Children.Add(rowBorder);
 
-			using (Bilder bilder = new Bilder())
+			using (Bilder bilder = this.core.GetBilder(this.cosplan.Nummer))
 			{
-				bilder.Where = "Cosplan_Nr = " + this.cosplan.Nummer;
-				bilder.Read();
-
 				while (!bilder.EoF)
 				{
 					Image bild = new Image()
@@ -247,24 +249,6 @@
 			}
 		}
 
-		private void BildContainer_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			//if (!(sender is DockPanel))
-			//{
-			//	return;
-			//}
-
-			//DockPanel dp = (DockPanel)sender;
-			//for (int i = 0; i < dp.Children.Count; i++)
-			//{
-			//	if (dp.Children[i] is Image)
-			//	{
-			//		this.Bild_MouseUp(dp.Children[i], e);
-			//		break;
-			//	}
-			//}
-		}
-
 		private void Bild_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			if (!(sender is Image))
@@ -277,8 +261,107 @@
 			{
 				ImageSource = bild.Source
 			};
+
+			showBild.SetPositionToParent(this);
 			showBild.ShowDialog();
 		}
+		#endregion
+
+		#region ToDos
+		private void AddTodo_Click(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+		private void DelTodo_Click(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+		private void LoadToDos()
+		{
+			this.todos.Children.Clear();
+
+			using (ToDos toDos = this.core.GetToDos(this.cosplan.Nummer))
+			{
+				//hier "Tabellenkoepfe" fuer Kategorien einfuegen 
+				while (!toDos.EoF)
+				{
+					Grid grid = new Grid()
+					{
+						Background = Brushes.Transparent,
+						Height = 50
+					};
+					grid.MouseEnter += Grid_MouseEnter;
+					grid.MouseLeave += Grid_MouseLeave;
+
+					for (int i = 0; i < 2; i++)
+					{
+						grid.ColumnDefinitions.Add(new ColumnDefinition());
+					}
+
+					this.ActualizeSingleToDoRow(grid, toDos);
+
+					this.todos.Children.Add(grid);
+					toDos.Skip();
+				}
+			}
+		}
+
+		private void ActualizeSingleToDoRow(Grid grid, ToDos toDos)
+		{
+			grid.Children.Clear();
+
+			TextBlock labelNummer = new TextBlock
+			{
+				Text = toDos.Nummer.ToString(),
+				Visibility = Visibility.Collapsed
+			};
+			grid.Children.Add(labelNummer);
+
+			TextBlock labelBezeichnung = new TextBlock
+			{
+				Text = toDos.Bezeichnung,
+				HorizontalAlignment = HorizontalAlignment.Left,
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
+			};
+			Grid.SetColumn(labelBezeichnung, 0);
+			grid.Children.Add(labelBezeichnung);
+
+			ComboBox comboProzentErledigt = new ComboBox
+			{
+				HorizontalAlignment = HorizontalAlignment.Right,
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
+			};
+			for (int i = 0; i <= 100; i = i + 5)
+			{
+				comboProzentErledigt.Items.Add(new ComboBoxItem { Content = i + "%" });
+			}
+
+			Grid.SetColumn(comboProzentErledigt, 1);
+			grid.Children.Add(comboProzentErledigt);
+		}
+
+		private void Grid_MouseLeave(object sender, MouseEventArgs e)
+		{
+			Grid grid = (Grid)sender;
+			if (grid.Background != Layout.SelectedBackground)
+			{
+				grid.Background = Brushes.Transparent;
+			}
+		}
+
+		private void Grid_MouseEnter(object sender, MouseEventArgs e)
+		{
+			Grid grid = (Grid)sender;
+			if (grid.Background != Layout.SelectedBackground)
+			{
+				grid.Background = Layout.ButtonHover;
+			}
+		}
+		#endregion
 
 		private void Button_MouseEnter(object sender, MouseEventArgs e)
 		{

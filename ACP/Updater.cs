@@ -1,5 +1,7 @@
 ﻿namespace ACP
 {
+	using System;
+
 	using ApS;
 	using ApS.Databases.Firebird;
 
@@ -7,29 +9,49 @@
 	{
 		public void UpdateDatabase()
 		{
-			if (!UserSettings.Settings.GetSetting("V0_1_3_Updated").ToBoolean())
-			{
-				this.UpdateDatabase(Versionen.V0_1_3);
-			}
+			UpdateDatabase("V0_1_3");
+			UpdateDatabase("V0_3_0");
 		}
 
 		private void UpdateDatabase(Versionen vers)
 		{
 			this.Error = false;
+			UpdateDatabase v = null;
 			switch (vers)
 			{
 				case Versionen.V0_1_3:
-					Datenbankversionen.Version_0_1_3 v013 = new Datenbankversionen.Version_0_1_3();
-					v013.ErrorOccured += VersionenErrorOccured;
-					v013.RunStatements();
-					v013.ErrorOccured -= VersionenErrorOccured;
-					if (!this.Error)
-					{
-						UserSettings.Settings.SetSetting("V0_1_3_Updated", true);
-					}
+					v = new Datenbankversionen.Version_0_1_3();
+					break;
+				case Versionen.V0_3_0:
+					v = new Datenbankversionen.Version_0_3_0();
 					break;
 				default:
 					break;
+			}
+
+			if (v != null)
+			{
+				v.ErrorOccured += VersionenErrorOccured;
+				v.RunStatements();
+				v.ErrorOccured -= VersionenErrorOccured;
+				if (!this.Error)
+				{
+					UserSettings.Settings.SetSetting(vers.ToString() + "_Updated", true);
+				}
+			}
+		}
+
+		private void UpdateDatabase(string vers)
+		{
+			if (!UserSettings.Settings.GetSetting(vers + "_Updated").ToBoolean())
+			{
+				foreach (Versionen item in (Versionen[])Enum.GetValues(typeof(Versionen)))
+				{
+					if (item.ToString() == vers)
+					{
+						UpdateDatabase(item);
+					}
+				}
 			}
 		}
 
@@ -41,7 +63,8 @@
 
 		public enum Versionen
 		{
-			V0_1_3
+			V0_1_3,
+			V0_3_0
 		}
 	}
 }

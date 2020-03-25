@@ -9,8 +9,9 @@
 	using System.Windows.Media.Imaging;
 
 	using ACP;
-	using ApS;
 	using GUI_Bases;
+	using ApS;
+	using ApS.WPF;
 
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
@@ -45,10 +46,10 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.addFranchise.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
-			this.delFranchise.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.DelIcon;
-			this.addCosplan.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.AddIcon;
-			this.Einstellungen.FindVisualChildren<Image>().First().Source = ApS.WPF.ResourceConstants.WheelIcon;
+			this.addFranchise.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
+			this.delFranchise.FindVisualChildren<Image>().First().Source = ResourceConstants.DelIcon;
+			this.addCosplan.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
+			this.Einstellungen.FindVisualChildren<Image>().First().Source = ResourceConstants.WheelIcon;
 
 			this.version.Text = ApS.Version.StringAppVersion;
 
@@ -172,6 +173,7 @@
 		private void Einstellungen_Click(object sender, RoutedEventArgs e)
 		{
 			Einstellungen einstellungen = new Einstellungen();
+			einstellungen.SetPositionToParent(this);
 			einstellungen.ShowDialog();
 
 			if (einstellungen.ResetNummern)
@@ -325,7 +327,8 @@
 			{
 				Grid grid = new Grid()
 				{
-					Background = Brushes.Transparent
+					Background = Brushes.Transparent,
+					Height = 50
 				};
 				grid.MouseUp += Grid_MouseUp;
 				grid.MouseEnter += Grid_MouseEnter;
@@ -398,7 +401,6 @@
 			//buttonBilder.Content = imageBilder;
 			//Grid.SetColumn(buttonBilder, 8);
 			//grid.Children.Add(buttonBilder);
-			grid.Height = 50;
 		}
 
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)
@@ -441,7 +443,7 @@
 				grid.Background = Layout.SelectedBackground;
 				this.selectedCosplan = ((TextBlock)grid.Children[0]).Text.ToInt();
 
-				if (!Cosplan.Show(this.core, this.selectedCosplan.ToInt()))
+				if (!Cosplan.Show(this, this.core, this.selectedCosplan.ToInt()))
 				{
 					this.ActualizeData();
 				}

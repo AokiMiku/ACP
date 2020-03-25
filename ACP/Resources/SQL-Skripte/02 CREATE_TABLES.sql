@@ -25,6 +25,23 @@ CREATE TABLE Bilder
 CREATE TABLE Einstellungen
 (
 	Nummer			integer NOT NULL PRIMARY KEY,
-	SettingKey				varchar(40) NOT NULL,
-	SettingValue			varchar(40) NOT NULL
+	SettingKey		varchar(40) NOT NULL,
+	SettingValue	varchar(40) NOT NULL
+);
+
+CREATE TABLE ToDos
+(
+	Nummer 			integer NOT NULL PRIMARY KEY,
+	Cosplan_Nr		integer NOT NULL,
+	Bezeichnung		varchar(100),
+	ProzentErledigt	integer DEFAULT 0 NOT NULL,
+	Kategorie_Nr	integer NOT NULL,
+	Kosten			decimal(10,2),
+	Zeit			time
+);
+
+CREATE TABLE ToDoKategorien
+(
+	Nummer			integer NOT NULL PRIMARY KEY,
+	Bezeichnung		varchar(40)
 );

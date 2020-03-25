@@ -26,7 +26,7 @@
 			<TabItem >
 				<TabItem.Header>
 					<DockPanel>
-						<Image Source="Resources/Icons/wheel.ico" Height="20" />
+						<Image Name="tabAllgemeinIcon" Height="20" />
 						<Label Width="3" />
 						<TextBlock Text="Allgemeines" />
 					</DockPanel>

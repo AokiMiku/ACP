@@ -5,8 +5,9 @@
 	using System.Windows.Media;
 
 	using ACP;
-	using ApS;
 	using GUI_Bases;
+	using ApS;
+	using ApS.WPF;
 
     /// <summary>
     /// Interaktionslogik für Einstellungen.xaml
@@ -27,6 +28,7 @@
             InitializeComponent();
 			this.WindowName = "Einstellungen";
 
+			this.tabAllgemeinIcon.Source = ResourceConstants.WheelIcon;
 			Layout.WindowBackgrounds.Add(this.Tabs);
         }
 

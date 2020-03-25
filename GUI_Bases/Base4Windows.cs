@@ -17,7 +17,7 @@
 
 		protected override void SetFenstergroessen()
 		{
-			if (UserSettings.FenstergroesseMerken)
+			if (this.Fenstergroessen && UserSettings.FenstergroesseMerken)
 			{
 				this.Width = UserSettings.GetWidth(WindowName);
 				this.Height = UserSettings.GetHeight(WindowName);
@@ -34,7 +34,7 @@
 
 		protected override void SaveFenstergroessen()
 		{
-			if (UserSettings.FenstergroesseMerken)
+			if (this.Fenstergroessen && UserSettings.FenstergroesseMerken)
 			{
 				UserSettings.SaveWidth(WindowName, this.Width.ToInt());
 				UserSettings.SaveHeight(WindowName, this.Height.ToInt());
