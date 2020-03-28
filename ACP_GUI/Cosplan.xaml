@@ -36,9 +36,7 @@
 
 			<TextBlock Text="XXX" Name="cosplanName" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-			<DockPanel Name="delete" Grid.Column="1" Grid.Row="1" MouseLeftButtonUp="Delete_Click" Margin="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-				<TextBlock Text="Cosplan entfernen" HorizontalAlignment="Center" VerticalAlignment="Center" />
-			</DockPanel>
+			<base:CustomButton Name="delete" Text="Cosplan entfernen" Grid.Column="1" Grid.Row="1" Click="Delete_Click" Margin="2" />
 
 			<DockPanel Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >
 				<TextBlock Text="Erstellt am: " />
@@ -97,13 +95,9 @@
 						</Grid.RowDefinitions>
 
 						<DockPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 3">
-							<DockPanel Name="addTodo" MouseLeftButtonUp="AddTodo_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-								<Image Width="20" />
-							</DockPanel>
+							<base:CustomButton Name="addTodo" Click="AddTodo_Click" />
 							<Label Width="3" />
-							<DockPanel Name="delTodo" MouseLeftButtonUp="DelTodo_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-								<Image Width="20" />
-							</DockPanel>
+							<base:CustomButton Name="delTodo" Click="DelTodo_Click" />
 						</DockPanel>
 
 						<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" >
@@ -126,13 +120,9 @@
 						</Grid.RowDefinitions>
 
 						<DockPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 3">
-							<DockPanel Name="addBild" MouseLeftButtonUp="AddBild_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-								<Image Width="20" />
-							</DockPanel>
+							<base:CustomButton Name="addBild" Click="AddBild_Click" />
 							<Label Width="3" />
-							<DockPanel Name="delBild" MouseLeftButtonUp="DelBild_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-								<Image Width="20" />
-							</DockPanel>
+							<base:CustomButton Name="delBild" Click="DelBild_Click" />
 						</DockPanel>
 						<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" >
 							<StackPanel Name="bilder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >

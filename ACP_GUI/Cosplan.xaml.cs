@@ -28,23 +28,8 @@
 
 		public Cosplan()
 		{
-			InitializeComponent();
 			this.WindowName = "Cosplan";
-
-			Layout.Buttons.Add(this.addBild);
-			Layout.Buttons.Add(this.delBild);
-			Layout.Buttons.Add(this.addTodo);
-			Layout.Buttons.Add(this.delTodo);
-			Layout.Buttons.Add(this.delete);
-		}
-
-		~Cosplan()
-		{
-			Layout.Buttons.Remove(this.addBild);
-			Layout.Buttons.Remove(this.delBild);
-			Layout.Buttons.Remove(this.addTodo);
-			Layout.Buttons.Remove(this.delTodo);
-			Layout.Buttons.Remove(this.delete);
+			InitializeComponent();
 		}
 
 		/// <summary>
@@ -72,9 +57,9 @@
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.addBild.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
-			this.delBild.FindVisualChildren<Image>().First().Source = ResourceConstants.DelIcon;
-			this.addTodo.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
+			this.addBild.ImageSource = ResourceConstants.AddIcon;
+			this.delBild.ImageSource = ResourceConstants.DelIcon;
+			this.addTodo.ImageSource = ResourceConstants.AddIcon;
 			this.TodoTab.FindVisualChildren<Image>().First().Source = ResourceConstants.ToDoIcon;
 			this.BilderTab.FindVisualChildren<Image>().First().Source = ResourceConstants.PictureIcon;
 
@@ -284,18 +269,39 @@
 
 			using (ToDos toDos = this.core.GetToDos(this.cosplan.Nummer))
 			{
+				int kategorie = 0;
+				int columnCount = 10;
 				//hier "Tabellenkoepfe" fuer Kategorien einfuegen 
 				while (!toDos.EoF)
 				{
-					Grid grid = new Grid()
+					if (kategorie != toDos.Kategorie_Nr)
+					{
+						kategorie = toDos.Kategorie_Nr;
+
+						Grid header = new Grid
+						{
+							Background = Brushes.Transparent,
+							Height = 20
+						};
+
+						for (int i = 0; i < columnCount; i++)
+						{
+							header.ColumnDefinitions.Add(new ColumnDefinition());
+						}
+						this.CreateTableHeader(header, kategorie);
+						this.todos.Children.Add(header);
+					}
+					GridExtended grid = new GridExtended
 					{
 						Background = Brushes.Transparent,
 						Height = 50
 					};
 					grid.MouseEnter += Grid_MouseEnter;
 					grid.MouseLeave += Grid_MouseLeave;
+					grid.MouseUp += Grid_MouseUp;
+					grid.EditCompleted += Grid_EditCompleted;
 
-					for (int i = 0; i < 2; i++)
+					for (int i = 0; i < columnCount; i++)
 					{
 						grid.ColumnDefinitions.Add(new ColumnDefinition());
 					}
@@ -308,16 +314,76 @@
 			}
 		}
 
-		private void ActualizeSingleToDoRow(Grid grid, ToDos toDos)
+		private void CreateTableHeader(Grid grid, int kategorie)
+		{
+			if (kategorie <= 0)
+			{
+				return;
+			}
+
+			grid.Children.Clear();
+
+			TextBlock labelBezeichnung = new TextBlock
+			{
+				Text = this.core.GetKategorie(kategorie) + ":",
+				HorizontalAlignment = HorizontalAlignment.Left,
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
+			};
+			Grid.SetColumn(labelBezeichnung, 0);
+			Grid.SetColumnSpan(labelBezeichnung, 5);
+			grid.Children.Add(labelBezeichnung);
+
+			if (labelBezeichnung.Text == "Kaufen:")
+			{
+				TextBlock labelKosten = new TextBlock
+				{
+					Text = "Kosten",
+					HorizontalAlignment = HorizontalAlignment.Left,
+					VerticalAlignment = VerticalAlignment.Center,
+					Foreground = Layout.WindowForeground
+				};
+				Grid.SetColumn(labelKosten, 5);
+				Grid.SetColumnSpan(labelKosten, 2);
+				grid.Children.Add(labelKosten);
+			}
+			else if (labelBezeichnung.Text == "Machen:")
+			{
+				TextBlock labelZeit = new TextBlock
+				{
+					Text = "Zeit",
+					HorizontalAlignment = HorizontalAlignment.Left,
+					VerticalAlignment = VerticalAlignment.Center,
+					Foreground = Layout.WindowForeground
+				};
+				Grid.SetColumn(labelZeit, 5);
+				Grid.SetColumnSpan(labelZeit, 2);
+				grid.Children.Add(labelZeit);
+			}
+
+			TextBlock labelErledigt = new TextBlock
+			{
+				Text = "Erledigt",
+				HorizontalAlignment = HorizontalAlignment.Left,
+				VerticalAlignment = VerticalAlignment.Center,
+				Foreground = Layout.WindowForeground
+			};
+			Grid.SetColumn(labelErledigt, 7);
+			Grid.SetColumnSpan(labelErledigt, 2);
+			grid.Children.Add(labelErledigt);
+		}
+
+		private void ActualizeSingleToDoRow(GridExtended grid, ToDos toDos)
 		{
 			grid.Children.Clear();
+			grid.DataObject = new ToDos4Grid(toDos);
 
 			TextBlock labelNummer = new TextBlock
 			{
 				Text = toDos.Nummer.ToString(),
 				Visibility = Visibility.Collapsed
 			};
-			grid.Children.Add(labelNummer);
+			grid.Add2Children(labelNummer, true);
 
 			TextBlock labelBezeichnung = new TextBlock
 			{
@@ -327,21 +393,40 @@
 				Foreground = Layout.WindowForeground
 			};
 			Grid.SetColumn(labelBezeichnung, 0);
-			grid.Children.Add(labelBezeichnung);
+			Grid.SetColumnSpan(labelBezeichnung, 5);
+			grid.Add2Children(labelBezeichnung);
 
-			ComboBox comboProzentErledigt = new ComboBox
+			if (this.core.GetKategorie(toDos.Kategorie_Nr) == "Kaufen")
 			{
-				HorizontalAlignment = HorizontalAlignment.Right,
-				VerticalAlignment = VerticalAlignment.Center,
-				Foreground = Layout.WindowForeground
-			};
-			for (int i = 0; i <= 100; i = i + 5)
-			{
-				comboProzentErledigt.Items.Add(new ComboBoxItem { Content = i + "%" });
+				TextBlock labelKosten = new TextBlock
+				{
+					Text = toDos.Kosten.ToString("#.##") + " €",
+					HorizontalAlignment = HorizontalAlignment.Left,
+					VerticalAlignment = VerticalAlignment.Center,
+					Foreground = Layout.WindowForeground
+				};
+
+				Grid.SetColumn(labelKosten, 5);
+				Grid.SetColumnSpan(labelKosten, 2);
+				grid.Add2Children(labelKosten);
 			}
+			else if (this.core.GetKategorie(toDos.Kategorie_Nr) == "Machen")
+			{
+				ComboBox comboProzentErledigt = new ComboBox
+				{
+					HorizontalAlignment = HorizontalAlignment.Right,
+					VerticalAlignment = VerticalAlignment.Center,
+					Foreground = Layout.WindowForeground
+				};
+				for (int i = 0; i <= 100; i = i + 5)
+				{
+					comboProzentErledigt.Items.Add(new ComboBoxItem { Content = i + "%" });
+				}
 
-			Grid.SetColumn(comboProzentErledigt, 1);
-			grid.Children.Add(comboProzentErledigt);
+				Grid.SetColumn(comboProzentErledigt, 7);
+				Grid.SetColumnSpan(comboProzentErledigt, 2);
+				grid.Add2Children(comboProzentErledigt);
+			}
 		}
 
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)
@@ -359,6 +444,36 @@
 			if (grid.Background != Layout.SelectedBackground)
 			{
 				grid.Background = Layout.ButtonHover;
+			}
+		}
+
+		private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			((GridExtended)sender).Edit = true;
+		}
+
+		private void Grid_EditCompleted(object sender, EventArgs e)
+		{
+			GridExtended grid = ((GridExtended)sender);
+
+			if (grid.Edit)
+			{
+				string bezeichnung = grid.FindVisualChildren<TextBox>().ElementAt(0).Text;
+				int erledigt = 0;
+				decimal kosten = 0;
+				Time zeit = null;
+
+				ToDos4Grid toDos4Grid = (ToDos4Grid)grid.DataObject;
+				if (this.core.GetKategorie(toDos4Grid.Kategorie_Nr) == "Kaufen")
+				{
+					kosten = grid.FindVisualChildren<TextBox>().ElementAt(1).Text.Replace(" €", "").ToDecimal();
+				}
+				else if (this.core.GetKategorie(toDos4Grid.Kategorie_Nr) == "Machen")
+				{
+					zeit = new Time(grid.FindVisualChildren<TextBox>().ElementAt(1).Text);
+				}
+
+				this.core.SaveToDo(bezeichnung, toDos4Grid.Cosplan_Nr, erledigt, kosten, zeit, toDos4Grid.Nummer);
 			}
 		}
 		#endregion

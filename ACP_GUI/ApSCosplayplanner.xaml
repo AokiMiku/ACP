@@ -50,52 +50,25 @@
 				<TextBox Name="newFranchise" Width="150" Visibility="Collapsed" KeyDown="NewFranchise_KeyDown" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 				<DockPanel >
 					<Label Width="3"/>
-					<DockPanel Name="addFranchise" MouseLeftButtonUp="AddFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-						<Image Width="20" />
-					</DockPanel>
+					<base:CustomButton Name="addFranchise" Click="AddFranchise_Click" />
 					<Label Width="3"/>
-					<DockPanel Name="delFranchise" MouseLeftButtonUp="DelFranchise_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-						<Image Width="20" />
-					</DockPanel>
+					<base:CustomButton Name="delFranchise" Click="DelFranchise_Click" />
 				</DockPanel>
 			</DockPanel>
 
-			<DockPanel Name="Einstellungen" MouseLeftButtonUp="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-				<DockPanel HorizontalAlignment="Center" >
-					<Image Width="20"/>
-					<Label Width="3"/>
-					<TextBlock Text="Einstellungen" />
-				</DockPanel>
-			</DockPanel>
+			<base:CustomButton Name="Einstellungen" Text="Einstellungen" Click="Einstellungen_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" />
 
 			<DockPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
 				<Label Content="Cosplans: " />
-				<DockPanel Name="addCosplan" MouseLeftButtonUp="AddCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-					<Image Width="20" />
-				</DockPanel>
+				<base:CustomButton Name="addCosplan" Click="AddCosplan_Click" />
 				<Label Width="23" />
-				<!--<DockPanel Name="delCosplan" MouseLeftButtonUp="DelCosplan_Click" Background="Transparent" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-					<Image Source="Resources/Icons/del.ico" Width="20" />
-				</DockPanel>-->
 			</DockPanel>
 
 			<Border BorderThickness="0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" >
-				<DockPanel Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonUp="ColNummer_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" >
-					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-						<TextBlock Text="Nummer" />
-						<Label Width="3" />
-						<Image Name="colNummerIcon" Width="20" Visibility="Visible" />
-					</DockPanel>
-				</DockPanel>
+				<base:CustomButton Name="colNummer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ColNummer_Click" Text="Nummer" ImagePosition="Last" />
 			</Border>
 			<Border BorderThickness="0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" >
-				<DockPanel Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" MouseLeftButtonUp="ColName_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
-					<DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-						<TextBlock Text="Bezeichnung" />
-						<Label Width="3" />
-						<Image Name="colNameIcon" Width="20" Visibility="Hidden"/>
-					</DockPanel>
-				</DockPanel>
+				<base:CustomButton Name="colName" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="8" Click="ColName_Click" Text="Bezeichnung" ImagePosition="Last" />
 			</Border>
 
 			<!--<StackPanel Name="colErledigt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="1" MouseLeftButtonUp="ColErledigt_Click">

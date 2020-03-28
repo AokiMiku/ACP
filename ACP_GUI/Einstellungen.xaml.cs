@@ -24,9 +24,9 @@
 		private SolidColorBrush WindowForeground;
 
         public Einstellungen()
-        {
-            InitializeComponent();
+		{
 			this.WindowName = "Einstellungen";
+			InitializeComponent();
 
 			this.tabAllgemeinIcon.Source = ResourceConstants.WheelIcon;
 			Layout.WindowBackgrounds.Add(this.Tabs);

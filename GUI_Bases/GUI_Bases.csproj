@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base4Windows.cs" />
+    <Compile Include="CustomButton.cs" />
     <Compile Include="Layout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -23,33 +23,16 @@
 
 		public ApSCosplayplanner()
 		{
-			InitializeComponent();
 			this.WindowName = "MainWindow";
-
-			Layout.Buttons.Add(this.addFranchise);
-			Layout.Buttons.Add(this.delFranchise);
-			Layout.Buttons.Add(this.addCosplan);
-			Layout.Buttons.Add(this.Einstellungen);
-			Layout.Buttons.Add(this.colNummer);
-			Layout.Buttons.Add(this.colName);
-		}
-
-		~ApSCosplayplanner()
-		{
-			Layout.Buttons.Remove(this.addFranchise);
-			Layout.Buttons.Remove(this.delFranchise);
-			Layout.Buttons.Remove(this.addCosplan);
-			Layout.Buttons.Remove(this.Einstellungen);
-			Layout.Buttons.Remove(this.colNummer);
-			Layout.Buttons.Remove(this.colName);
+			InitializeComponent();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.addFranchise.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
-			this.delFranchise.FindVisualChildren<Image>().First().Source = ResourceConstants.DelIcon;
-			this.addCosplan.FindVisualChildren<Image>().First().Source = ResourceConstants.AddIcon;
-			this.Einstellungen.FindVisualChildren<Image>().First().Source = ResourceConstants.WheelIcon;
+			this.addFranchise.ImageSource = ResourceConstants.AddIcon;
+			this.delFranchise.ImageSource = ResourceConstants.DelIcon;
+			this.addCosplan.ImageSource = ResourceConstants.AddIcon;
+			this.Einstellungen.ImageSource = ResourceConstants.WheelIcon;
 
 			this.version.Text = ApS.Version.StringAppVersion;
 
@@ -214,27 +197,27 @@
 
 		private void SetSortingIcons()
 		{
-			this.colNummerIcon.Visibility = Visibility.Hidden;
-			this.colNameIcon.Visibility = Visibility.Hidden;
+			this.colNummer.ImageVisibility = Visibility.Hidden;
+			this.colName.ImageVisibility = Visibility.Hidden;
 			//this.colErledigtIcon.Visibility = Visibility.Hidden;
 
 			switch (this.core.CosplansOrderBy)
 			{
 				case Core.OrderBy.Nummer_asc:
-					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = ApS.WPF.ResourceConstants.Arrow_DownIcon;
+					this.colNummer.ImageVisibility = Visibility.Visible;
+					this.colNummer.ImageSource = ResourceConstants.Arrow_DownIcon;
 					break;
 				case Core.OrderBy.Nummer_desc:
-					this.colNummerIcon.Visibility = Visibility.Visible;
-					this.colNummerIcon.Source = ApS.WPF.ResourceConstants.Arrow_UpIcon;
+					this.colNummer.ImageVisibility = Visibility.Visible;
+					this.colNummer.ImageSource = ResourceConstants.Arrow_UpIcon;
 					break;
 				case Core.OrderBy.Name_asc:
-					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = ApS.WPF.ResourceConstants.Arrow_DownIcon;
+					this.colName.ImageVisibility = Visibility.Visible;
+					this.colName.ImageSource = ResourceConstants.Arrow_DownIcon;
 					break;
 				case Core.OrderBy.Name_desc:
-					this.colNameIcon.Visibility = Visibility.Visible;
-					this.colNameIcon.Source = ApS.WPF.ResourceConstants.Arrow_UpIcon;
+					this.colName.ImageVisibility = Visibility.Visible;
+					this.colName.ImageSource = ResourceConstants.Arrow_UpIcon;
 					break;
 				//case Core.OrderBy.Erledigt_asc:
 				//	this.colErledigtIcon.Visibility = Visibility.Visible;

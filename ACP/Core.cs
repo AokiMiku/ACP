@@ -169,16 +169,32 @@
 		#endregion
 
 		#region ToDos
-		public void SaveToDo(string bezeichnung, int cosplan_nr, int prozentErledigt = 0)
+		public void SaveToDo(string bezeichnung, int cosplan_nr, int prozentErledigt, decimal kosten, ApS.Time zeit, int nummer = 0)
 		{
-			using (ToDos toDos = new ToDos
+			using (ToDos toDos = new ToDos())
 			{
-				Bezeichnung = bezeichnung,
-				Cosplan_Nr = cosplan_nr,
-				ProzentErledigt = prozentErledigt
-			})
-			{
-				toDos.Save(ApS.Databases.SqlAction.Insert);
+				if (nummer == 0)
+				{
+					toDos.Bezeichnung = bezeichnung;
+					toDos.Cosplan_Nr = cosplan_nr;
+					toDos.ProzentErledigt = prozentErledigt;
+					toDos.Kosten = kosten;
+					toDos.Zeit = zeit;
+
+					toDos.Save(ApS.Databases.SqlAction.Insert);
+				}
+				else
+				{
+					toDos.Where = "Nummer = " + nummer;
+					toDos.Read();
+
+					toDos.Bezeichnung = bezeichnung;
+					toDos.ProzentErledigt = prozentErledigt;
+					toDos.Kosten = kosten;
+					toDos.Zeit = zeit;
+
+					toDos.Save(ApS.Databases.SqlAction.Update);
+				}
 			}
 		}
 
@@ -205,6 +221,25 @@
 				{
 					toDos.Delete();
 				}
+			}
+		}
+
+		public string GetKategorie(int nummer)
+		{
+			ToDoKategorien kategorien = new ToDoKategorien
+			{
+				Where = "Nummer = " + nummer
+			};
+
+			kategorien.Read();
+
+			if (!kategorien.EoF)
+			{
+				return kategorien.Bezeichnung;
+			}
+			else
+			{
+				return "";
 			}
 		}
 		#endregion
