@@ -23,7 +23,7 @@
 		private SolidColorBrush WindowBackground;
 		private SolidColorBrush WindowForeground;
 
-        public Einstellungen()
+        public Einstellungen(WPFBase parent) : base(parent)
 		{
 			this.WindowName = "Einstellungen";
 			InitializeComponent();

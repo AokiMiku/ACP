@@ -21,7 +21,7 @@
 		private Core core;
 		private int? selectedCosplan;
 
-		public ApSCosplayplanner()
+		public ApSCosplayplanner() : base(null)
 		{
 			this.WindowName = "MainWindow";
 			InitializeComponent();
@@ -155,8 +155,7 @@
 
 		private void Einstellungen_Click(object sender, RoutedEventArgs e)
 		{
-			Einstellungen einstellungen = new Einstellungen();
-			einstellungen.SetPositionToParent(this);
+			Einstellungen einstellungen = new Einstellungen(this);
 			einstellungen.ShowDialog();
 
 			if (einstellungen.ResetNummern)

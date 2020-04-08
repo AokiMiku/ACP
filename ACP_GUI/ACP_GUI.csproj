@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -88,11 +89,11 @@
     <Compile Include="Cosplan.xaml.cs">
       <DependentUpon>Cosplan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditToDo.xaml.cs">
+      <DependentUpon>EditToDo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Einstellungen.xaml.cs">
       <DependentUpon>Einstellungen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SaveCancel.xaml.cs">
-      <DependentUpon>SaveCancel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Updater.xaml.cs">
       <DependentUpon>Updater.xaml</DependentUpon>
@@ -117,11 +118,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Einstellungen.xaml">
+    <Page Include="EditToDo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SaveCancel.xaml">
+    <Page Include="Einstellungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

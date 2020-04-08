@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:cp="clr-namespace:DropDownCustomColorPicker;assembly=CustomColorPicker"
 		xmlns:base="clr-namespace:GUI_Bases;assembly=GUI_Bases"
+		xmlns:apswpf="clr-namespace:ApS.WPF;assembly=ApS.WPF"
         xmlns:local="clr-namespace:ACP_GUI"
         mc:Ignorable="d"
         Title="Einstellungen" MinHeight="300" MinWidth="400" Height="0" Width="0"
@@ -134,7 +135,7 @@
 
 		<StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
 			<Label Height="5" />
-			<local:SaveCancel x:Name="saveCancel"></local:SaveCancel>
+			<apswpf:SaveCancel x:Name="saveCancel" />
 		</StackPanel>
 	</Grid>
 </base:Base4Windows>

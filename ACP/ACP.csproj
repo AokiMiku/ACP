@@ -73,6 +73,7 @@
     <Compile Include="DbObjects\Einstellungen.cs" />
     <Compile Include="DbObjects\Franchises.cs" />
     <Compile Include="DbObjects\ToDoKategorien.cs" />
+    <Compile Include="DbObjects\ToDoKategorien4Dropdown.cs" />
     <Compile Include="DbObjects\ToDos.cs" />
     <Compile Include="DbObjects\ToDos4Grid.cs" />
     <Compile Include="Extensions.cs" />

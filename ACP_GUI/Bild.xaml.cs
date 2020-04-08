@@ -1,11 +1,15 @@
 ﻿namespace ACP_GUI
 {
 	using System;
+	using System.IO;
+	using System.Drawing;
 	using System.Windows;
 	using System.Windows.Input;
 	using System.Windows.Media;
+	using System.Windows.Media.Imaging;
 
 	using GUI_Bases;
+	using ApS.WPF;
 
 	/// <summary>
 	/// Interaktionslogik für Bild.xaml
@@ -14,8 +18,8 @@
 	{
 		public ImageSource ImageSource;
 
-		public Bild()
-        {
+		public Bild(WPFBase parent) : base(parent)
+		{
             InitializeComponent();
 
 			this.ShowInTaskbar = false;
@@ -40,7 +44,14 @@
 
 		private void Bild_Loaded(object sender, RoutedEventArgs e)
 		{
+			Stream bildStream = ((BitmapImage)this.ImageSource).StreamSource;
+			using (Image img = Image.FromStream(bildStream, false, false))
+			{
+				this.Height = img.Height;
+				this.Width = img.Width;
+			}
 			this.ResizeMode = ResizeMode.NoResize;
+			this.CenterRelativeToParent();
 		}
 
 		protected override void OnDeactivated(EventArgs e)

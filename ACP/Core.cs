@@ -242,6 +242,17 @@
 				return "";
 			}
 		}
+
+		public ToDoKategorien GetKategorien()
+		{
+			ToDoKategorien kategorien = new ToDoKategorien
+			{
+				Where = "Nummer is not null"
+			};
+			kategorien.Read();
+
+			return kategorien;
+		}
 		#endregion
 
 		public static void ResetCosplanNummern()

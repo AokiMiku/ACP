@@ -24,9 +24,8 @@
 		private bool geloescht = false;
 		private int bilderRow = 0;
 		private int bilderCountInLastRow = 0;
-		private int? selectedToDo;
 
-		public Cosplan()
+		public Cosplan(WPFBase parent) : base(parent)
 		{
 			this.WindowName = "Cosplan";
 			InitializeComponent();
@@ -39,7 +38,7 @@
 		/// <returns>False if Cosplan got deleted. Else True.</returns>
 		public static bool Show(WPFBase parent, Core core, int cosplan)
 		{
-			Cosplan c = new Cosplan
+			Cosplan c = new Cosplan(parent)
 			{
 				core = core,
 				cosplan = new Cosplans()
@@ -47,8 +46,7 @@
 					Where = "Nummer = " + cosplan
 				}
 			};
-
-			c.SetPositionToParent(parent);
+			
 			c.cosplan.Read();
 			c.ShowDialog();
 
@@ -242,12 +240,10 @@
 			}
 
 			Image bild = (Image)sender;
-			Bild showBild = new Bild
+			Bild showBild = new Bild(this)
 			{
 				ImageSource = bild.Source
 			};
-
-			showBild.SetPositionToParent(this);
 			showBild.ShowDialog();
 		}
 		#endregion
@@ -255,12 +251,20 @@
 		#region ToDos
 		private void AddTodo_Click(object sender, MouseButtonEventArgs e)
 		{
-
+			if (EditToDo.Show(this.core, this, this.cosplan.Nummer))
+			{
+				this.LoadToDos();
+			}
 		}
 
 		private void DelTodo_Click(object sender, MouseButtonEventArgs e)
 		{
-
+			CustomButton button = (CustomButton)sender;
+			if (MessageBox.Show(Constants.MessageBoxDeleteToDo, Constants.CaptionDelete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+			{
+				this.core.DeleteTodo(((ToDos4Grid)((GridExtended)button.Parent).DataObject).Nummer);
+				this.LoadToDos();
+			}
 		}
 
 		private void LoadToDos()
@@ -270,7 +274,7 @@
 			using (ToDos toDos = this.core.GetToDos(this.cosplan.Nummer))
 			{
 				int kategorie = 0;
-				int columnCount = 10;
+				int columnCount = 9;
 				//hier "Tabellenkoepfe" fuer Kategorien einfuegen 
 				while (!toDos.EoF)
 				{
@@ -284,7 +288,7 @@
 							Height = 20
 						};
 
-						for (int i = 0; i < columnCount; i++)
+						for (int i = 0; i <= columnCount; i++)
 						{
 							header.ColumnDefinitions.Add(new ColumnDefinition());
 						}
@@ -301,7 +305,7 @@
 					grid.MouseUp += Grid_MouseUp;
 					grid.EditCompleted += Grid_EditCompleted;
 
-					for (int i = 0; i < columnCount; i++)
+					for (int i = 0; i <= columnCount; i++)
 					{
 						grid.ColumnDefinitions.Add(new ColumnDefinition());
 					}
@@ -388,7 +392,7 @@
 			TextBlock labelBezeichnung = new TextBlock
 			{
 				Text = toDos.Bezeichnung,
-				HorizontalAlignment = HorizontalAlignment.Left,
+				HorizontalAlignment = HorizontalAlignment.Stretch,
 				VerticalAlignment = VerticalAlignment.Center,
 				Foreground = Layout.WindowForeground
 			};
@@ -401,7 +405,7 @@
 				TextBlock labelKosten = new TextBlock
 				{
 					Text = toDos.Kosten.ToString("#.##") + " €",
-					HorizontalAlignment = HorizontalAlignment.Left,
+					HorizontalAlignment = HorizontalAlignment.Stretch,
 					VerticalAlignment = VerticalAlignment.Center,
 					Foreground = Layout.WindowForeground
 				};
@@ -412,9 +416,22 @@
 			}
 			else if (this.core.GetKategorie(toDos.Kategorie_Nr) == "Machen")
 			{
+				//TODO: create custom user control to handle custom type Time properly
+				TextBlock labelZeit = new TextBlock
+				{
+					Text = toDos.Zeit.ToString(),
+					HorizontalAlignment = HorizontalAlignment.Stretch,
+					VerticalAlignment = VerticalAlignment.Center,
+					Foreground = Layout.WindowForeground
+				};
+
+				Grid.SetColumn(labelZeit, 5);
+				Grid.SetColumnSpan(labelZeit, 2);
+				grid.Add2Children(labelZeit);
+
 				ComboBox comboProzentErledigt = new ComboBox
 				{
-					HorizontalAlignment = HorizontalAlignment.Right,
+					HorizontalAlignment = HorizontalAlignment.Stretch,
 					VerticalAlignment = VerticalAlignment.Center,
 					Foreground = Layout.WindowForeground
 				};
@@ -427,6 +444,17 @@
 				Grid.SetColumnSpan(comboProzentErledigt, 2);
 				grid.Add2Children(comboProzentErledigt);
 			}
+
+			CustomButton buttonDelToDo = new CustomButton
+			{
+				Text = "",
+				ImageSource = ResourceConstants.DelIcon,
+				HorizontalAlignment = HorizontalAlignment.Center,
+				VerticalAlignment = VerticalAlignment.Center
+			};
+			buttonDelToDo.Click += DelTodo_Click;
+			Grid.SetColumn(buttonDelToDo, 9);
+			grid.Children.Add(buttonDelToDo);
 		}
 
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)

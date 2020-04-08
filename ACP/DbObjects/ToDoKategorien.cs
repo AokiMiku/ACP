@@ -20,12 +20,6 @@
 		{
 		}
 
-		public int Cosplan_Nr
-		{
-			get { return this.GetInt("Cosplan_Nr"); }
-			set { this.Put("Cosplan_Nr", value); }
-		}
-
 		public string Bezeichnung
 		{
 			get { return this.GetString("Bezeichnung"); }

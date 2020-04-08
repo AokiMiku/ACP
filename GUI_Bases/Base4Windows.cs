@@ -9,7 +9,7 @@
 
 	public class Base4Windows : WPFBase
 	{
-		public Base4Windows()
+		public Base4Windows(WPFBase parent) : base(parent)
 		{
 			Layout.WindowBackgrounds.Add(this);
 		}
