@@ -1,5 +1,6 @@
 ﻿namespace ACP
 {
+	using ApS;
 	public class Core
 	{
 		#region Felder
@@ -169,7 +170,7 @@
 		#endregion
 
 		#region ToDos
-		public void SaveToDo(string bezeichnung, int cosplan_nr, int prozentErledigt, decimal kosten, ApS.Time zeit, int nummer = 0)
+		public void SaveToDo(string bezeichnung, int cosplan_nr, int? prozentErledigt, decimal? kosten, Time zeit, int nummer = 0)
 		{
 			using (ToDos toDos = new ToDos())
 			{
@@ -177,8 +178,8 @@
 				{
 					toDos.Bezeichnung = bezeichnung;
 					toDos.Cosplan_Nr = cosplan_nr;
-					toDos.ProzentErledigt = prozentErledigt;
-					toDos.Kosten = kosten;
+					toDos.ProzentErledigt = prozentErledigt.ToInt();
+					toDos.Kosten = kosten.ToDecimal();
 					toDos.Zeit = zeit;
 
 					toDos.Save(ApS.Databases.SqlAction.Insert);
@@ -188,10 +189,22 @@
 					toDos.Where = "Nummer = " + nummer;
 					toDos.Read();
 
-					toDos.Bezeichnung = bezeichnung;
-					toDos.ProzentErledigt = prozentErledigt;
-					toDos.Kosten = kosten;
-					toDos.Zeit = zeit;
+					if (!string.IsNullOrEmpty(bezeichnung))
+					{
+						toDos.Bezeichnung = bezeichnung;
+					}
+					if (prozentErledigt != null)
+					{
+						toDos.ProzentErledigt = prozentErledigt.ToInt();
+					}
+					if (kosten != null)
+					{
+						toDos.Kosten = kosten.ToDecimal();
+					}
+					if (zeit != null)
+					{
+						toDos.Zeit = zeit;
+					}
 
 					toDos.Save(ApS.Databases.SqlAction.Update);
 				}

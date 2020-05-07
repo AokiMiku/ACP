@@ -381,6 +381,7 @@
 		{
 			grid.Children.Clear();
 			grid.DataObject = new ToDos4Grid(toDos);
+			grid.FocusElementInEditMode = 2;
 
 			TextBlock labelNummer = new TextBlock
 			{
@@ -404,7 +405,7 @@
 			{
 				TextBlock labelKosten = new TextBlock
 				{
-					Text = toDos.Kosten.ToString("#.##") + " €",
+					Text = toDos.Kosten.ToString("C"),
 					HorizontalAlignment = HorizontalAlignment.Stretch,
 					VerticalAlignment = VerticalAlignment.Center,
 					Foreground = Layout.WindowForeground
@@ -413,6 +414,18 @@
 				Grid.SetColumn(labelKosten, 5);
 				Grid.SetColumnSpan(labelKosten, 2);
 				grid.Add2Children(labelKosten);
+
+				BaseCheckBox chkErledigt = new BaseCheckBox
+				{
+					IsChecked = toDos.ProzentErledigt == 100,
+					HorizontalAlignment = HorizontalAlignment.Center,
+					VerticalAlignment = VerticalAlignment.Center
+				};
+				chkErledigt.CheckedChanged += ChkErledigt_CheckedChanged;
+
+				Grid.SetColumn(chkErledigt, 7);
+				Grid.SetColumnSpan(chkErledigt, 2);
+				grid.Add2Children(chkErledigt);
 			}
 			else if (this.core.GetKategorie(toDos.Kategorie_Nr) == "Machen")
 			{
@@ -435,9 +448,15 @@
 					VerticalAlignment = VerticalAlignment.Center,
 					Foreground = Layout.WindowForeground
 				};
+				comboProzentErledigt.SelectionChanged += ComboProzentErledigt_SelectionChanged;
+
 				for (int i = 0; i <= 100; i = i + 5)
 				{
 					comboProzentErledigt.Items.Add(new ComboBoxItem { Content = i + "%" });
+					if (i == toDos.ProzentErledigt)
+					{
+						comboProzentErledigt.SelectedIndex = comboProzentErledigt.Items.Count - 1;
+					}
 				}
 
 				Grid.SetColumn(comboProzentErledigt, 7);
@@ -455,6 +474,32 @@
 			buttonDelToDo.Click += DelTodo_Click;
 			Grid.SetColumn(buttonDelToDo, 9);
 			grid.Children.Add(buttonDelToDo);
+		}
+
+		private void ChkErledigt_CheckedChanged(object sender, EventArgs e)
+		{
+			BaseCheckBox chk = (BaseCheckBox)sender;
+			ToDos4Grid toDos4Grid = (ToDos4Grid)((GridExtended)chk.Parent).DataObject;
+			if (chk.IsChecked)
+			{
+				this.core.SaveToDo(null, toDos4Grid.Cosplan_Nr, 100, null, null, toDos4Grid.Nummer);
+			}
+			else
+			{
+				this.core.SaveToDo(null, toDos4Grid.Cosplan_Nr, 0, null, null, toDos4Grid.Nummer);
+			}
+		}
+
+		private void ComboProzentErledigt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			try
+			{
+				ComboBox combo = (ComboBox)sender;
+				ToDos4Grid toDos4Grid = (ToDos4Grid)((GridExtended)combo.Parent).DataObject;
+				this.core.SaveToDo(null, toDos4Grid.Cosplan_Nr, ((ComboBoxItem)combo.SelectedItem).Content.ToString().Replace("%", "").ToInt(), null, null, toDos4Grid.Nummer);
+			}
+			catch (NullReferenceException)
+			{ /* combo.Parent is null, if window isn't loaded yet */ }
 		}
 
 		private void Grid_MouseLeave(object sender, MouseEventArgs e)
